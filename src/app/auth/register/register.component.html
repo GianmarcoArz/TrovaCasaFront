@@ -1,0 +1,48 @@
+<div class="container">
+  <h1>Registrati</h1>
+  <form>
+    <input
+      type="text"
+      class="form-control mb-3"
+      placeholder="username"
+      name="username"
+      [(ngModel)]="formData.username"
+    />
+    <input
+      type="email"
+      class="form-control mb-3"
+      placeholder="Email"
+      name="email"
+      [(ngModel)]="formData.email"
+    />
+    <input
+      type="text"
+      class="form-control mb-3"
+      placeholder="nome"
+      name="nome"
+      [(ngModel)]="formData.nome"
+    />
+    <input
+      type="text"
+      class="form-control mb-3"
+      placeholder="cognome"
+      name="cognome"
+      [(ngModel)]="formData.cognome"
+    />
+    <input
+      type="text"
+      class="form-control mb-3"
+      placeholder="telefono"
+      name="telefono"
+      [(ngModel)]="formData.telefono"
+    />
+    <input
+      type="password"
+      class="form-control mb-3"
+      placeholder="Password"
+      name="password"
+      [(ngModel)]="formData.password"
+    />
+    <button (click)="register()" class="btn btn-success">Registrati</button>
+  </form>
+</div>
