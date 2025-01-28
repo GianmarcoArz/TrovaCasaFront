@@ -8,7 +8,7 @@ email: string;
 nome: string;
 cognome: string;
 telefono: string;
-dataRegistrazione: Date;
+dataRegistrazione?: Date;
 immobili: iImmobili[];
 roles: Role[];
 }

@@ -1,20 +1,18 @@
 <div class="container">
-  <h1>Login</h1>
-  <form>
+  <h1>accedi</h1>
+  <form [formGroup]="form">
     <input
       type="text"
       class="form-control mb-3"
       placeholder="username"
-      name="username"
-      [(ngModel)]="formData.username"
+      formControlName="username"
     />
     <input
       type="password"
       class="form-control mb-3"
       placeholder="Password"
-      name="password"
-      [(ngModel)]="formData.password"
+      formControlName="password"
     />
-    <button (click)="login()" class="btn btn-success">Accedi</button>
+    <button (click)="login()" class="btn btn-success" [disabled]="form.invalid">login</button>
   </form>
 </div>

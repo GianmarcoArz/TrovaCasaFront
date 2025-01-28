@@ -18,6 +18,7 @@ export class RegisterComponent {
     this.authSvc.registerUser(this.formData).subscribe((res) => {
       this.router.navigate(['/auth/login']);
       alert('registrazione effettuata correttamente');
+      console.log(res);
     });
   }
 }

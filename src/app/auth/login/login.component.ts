@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { iLoginRequest } from '../../interfaces/i-login-request';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
@@ -8,38 +8,41 @@ import { take } from 'rxjs';
   standalone: false,
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
-  formData: iLoginRequest = {
-    username: '',
-    password: '',
-  };
+export class LoginComponent implements OnInit {
 
-  constructor(private authSvc: AuthService, private router: Router) {}
+  form!: FormGroup;
+  constructor(
+    private authSvc: AuthService,
+    private router: Router,
+    private fb: FormBuilder
+  ) {}
+
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+  }
 
   login() {
-    this.authSvc
-      .login(this.formData)
-      .pipe(take(1))
-      .subscribe({
-        next: () => {
-          const role = this.authSvc.getUserRole();
-          switch (role) {
-            case 'ROLE_ADMIN':
-              this.router.navigate(['/admin']);
-              break;
-            case 'ROLE_USER':
-              this.router.navigate(['/user']);
-              break;
-            default:
-              this.router.navigate(['/auth/login']);
-          }
-          alert('Login effettuato correttamente');
-        },
-        error: (err) => {
-          alert('Errore durante il login');
-        },
-      });
+    if (this.form.invalid) {
+      alert('Per favore, riempi correttamente tutti i campi.');
+      return;
+    }
+
+    const loginData = this.form.value;
+    this.authSvc.login(loginData).pipe(take(1)).subscribe(
+      (res) => {
+        this.router.navigate(['/home']);
+        alert('Login effettuato correttamente');
+        console.log(res);
+      },
+      (err) => {
+        alert('Credenziali errate');
+        console.error(err);
+      }
+    );
   }
 }

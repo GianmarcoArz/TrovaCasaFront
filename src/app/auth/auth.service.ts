@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../../environments/environment.development';
-import { BehaviorSubject, map, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, tap, throwError } from 'rxjs';
 import { iAccessData } from '../interfaces/i-access-data';
 import { Router } from '@angular/router';
 import { iUser } from '../interfaces/i-user';
@@ -43,23 +43,35 @@ export class AuthService {
 
     const token = accessData.accessToken;
     const decodedToken = this.jwtHelper.decodeToken(token);
-    // Assuming your JWT token contains a 'roles' claim
-    return decodedToken.roles[0]; // Gets first role
+    return decodedToken.roles[0];
   }
 
   login(authData: iLoginRequest) {
+    console.log('Dati di login:', authData);
     return this.http.post<iAccessData>(this.loginUrl, authData).pipe(
       tap((accessData) => {
+        console.log('Risposta del server:', accessData);
         this.authSubject$.next(accessData);
         localStorage.setItem('accessData', JSON.stringify(accessData));
 
-        const expDate = this.jwtHelper.getTokenExpirationDate(
-          accessData.accessToken
-        ) as Date;
-        this.autoLogout(expDate);
+        const expDate = this.jwtHelper.getTokenExpirationDate(accessData.accessToken);
+        console.log('Data di scadenza del token:', expDate);
+
+        if (expDate instanceof Date && !isNaN(expDate.getTime())) {
+          this.autoLogout(expDate);
+        } else {
+          console.error('Errore: la data di scadenza del token non è valida');
+          this.logout();
+        }
+      }),
+      catchError((error) => {
+        console.error('Errore durante il login:', error);
+        alert('Errore durante il login. Riprova.');
+        return throwError(error);
       })
     );
   }
+
 
   logout() {
     this.authSubject$.next(null);
@@ -67,15 +79,28 @@ export class AuthService {
     this.router.navigate(['/auth/login']);
   }
 
+
   autoLogout(expDate: Date) {
     clearTimeout(this.autoLogoutTimer);
+
+    if (!expDate || isNaN(expDate.getTime())) {
+      console.warn('Data di scadenza non valida, logout immediato');
+      this.logout();
+      return;
+    }
+
     const expMs = expDate.getTime() - new Date().getTime();
 
-    this.autoLogoutTimer = setTimeout(() => {
+    if (expMs > 0) {
+      console.log(`Token scadrà tra ${expMs / 1000} secondi`);
+      this.autoLogoutTimer = setTimeout(() => {
+        this.logout();
+      }, expMs);
+    } else {
+      console.warn('Il token è già scaduto, effettuando logout immediato');
       this.logout();
-    }, expMs);
+    }
   }
-
   restoreUser() {
     const userJson: string | null = localStorage.getItem('accessData');
     if (!userJson) return;
