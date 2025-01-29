@@ -8,8 +8,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 import { TokenInterceptor } from './auth/token.interceptor';
 import { FooterComponent } from './main-components/footer/footer.component';
 import { NavbarComponent } from './main-components/navbar/navbar.component';
-import { HomeComponent } from './pages/home/home.component';
-import { LandingPageComponent } from './pages/landing-page/landing-page.component';
+
 
 @NgModule({
   declarations: [

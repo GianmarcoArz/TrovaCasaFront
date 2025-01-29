@@ -19,6 +19,10 @@ const routes: Routes = [{ path: 'auth',
       import('./pages/landing-page/landing-page.module').then(
         (m) => m.LandingPageModule
       ),
+   },
+   {
+    path: 'profilo',
+    loadChildren: () => import('./pages/profilo/profilo.module').then((m) => m.ProfiloModule),
    }
   ];
 
