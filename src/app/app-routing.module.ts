@@ -22,7 +22,9 @@ const routes: Routes = [{ path: 'auth',
    },
    {
     path: 'profilo',
-    loadChildren: () => import('./pages/profilo/profilo.module').then((m) => m.ProfiloModule),
+    loadChildren: () => import('./pages/profilo/profilo.module').then(m => m.ProfiloModule),
+    canActivate:[GuestGuard],
+    canActivateChild:[GuestGuard]
    }
   ];
 
