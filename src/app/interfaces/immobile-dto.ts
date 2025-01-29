@@ -21,4 +21,6 @@ export interface ImmobileDTO {
   allarme: boolean;
   sorveglianza: boolean;
   statoImmobile: StatoImmobile;
+  dataDiInserimento?: Date;
+  userId?: number;
 }

@@ -1,202 +1,94 @@
 <div class="container">
-  <h2>Crea Nuovo Annuncio Immobiliare</h2>
-
-  <form [formGroup]="immobileForm" (ngSubmit)="onSubmit()" class="immobile-form">
-    <!-- Sezione Informazioni Generali -->
-    <div class="form-section">
-      <h3>Informazioni Generali</h3>
-
+  <h1>Profilo</h1>
+  <button class="btn btn-primary" (click)="toggleForm()">Crea Annuncio Immobile</button>
+  <div *ngIf="showForm">
+    <form [formGroup]="immobileForm" (ngSubmit)="creaAnnuncio()">
       <div class="form-group">
-        <label>Titolo Annuncio *</label>
-        <input type="text" formControlName="titolo" placeholder="Inserisci titolo">
-        <div class="error-message"
-             *ngIf="immobileForm.get('titolo')?.errors?.['required'] && immobileForm.get('titolo')?.touched">
-          Il titolo è obbligatorio
-        </div>
+        <label for="titolo">Titolo</label>
+        <input id="titolo" formControlName="titolo" class="form-control" />
       </div>
-
       <div class="form-group">
-        <label>Descrizione *</label>
-        <textarea formControlName="descrizione" rows="4" placeholder="Descrivi l'immobile"></textarea>
-        <div class="error-message"
-             *ngIf="immobileForm.get('descrizione')?.errors?.['required'] && immobileForm.get('descrizione')?.touched">
-          La descrizione è obbligatoria
-        </div>
+        <label for="descrizione">Descrizione</label>
+        <input id="descrizione" formControlName="descrizione" class="form-control" />
       </div>
-    </div>
-
-    <!-- Sezione Prezzo e Dimensioni -->
-    <div class="form-section">
-      <h3>Caratteristiche Tecniche</h3>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label>Prezzo (€) *</label>
-          <input type="number" formControlName="prezzo" min="0">
-          <div class="error-message"
-               *ngIf="immobileForm.get('prezzo')?.errors?.['required'] && immobileForm.get('prezzo')?.touched">
-            Il prezzo è obbligatorio
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Metri Quadri *</label>
-          <input type="number" formControlName="metriQuadri" min="0">
-          <div class="error-message"
-               *ngIf="immobileForm.get('metriQuadri')?.errors?.['required'] && immobileForm.get('metriQuadri')?.touched">
-            I metri quadri sono obbligatori
-          </div>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label>Numero di Vani *</label>
-          <input type="number" formControlName="numeroVani" min="0">
-          <div class="error-message"
-               *ngIf="immobileForm.get('numeroVani')?.errors?.['required'] && immobileForm.get('numeroVani')?.touched">
-            Il numero di vani è obbligatorio
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Piano *</label>
-          <input type="number" formControlName="piano">
-          <div class="error-message"
-               *ngIf="immobileForm.get('piano')?.errors?.['required'] && immobileForm.get('piano')?.touched">
-            Il piano è obbligatorio
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sezione Indirizzo -->
-    <div class="form-section">
-      <h3>Indirizzo</h3>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label>Via *</label>
-          <input type="text" formControlName="via" placeholder="Via/Piazza">
-          <div class="error-message"
-               *ngIf="immobileForm.get('via')?.errors?.['required'] && immobileForm.get('via')?.touched">
-            La via è obbligatoria
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Civico *</label>
-          <input type="number" formControlName="civico">
-          <div class="error-message"
-               *ngIf="immobileForm.get('civico')?.errors?.['required'] && immobileForm.get('civico')?.touched">
-            Il civico è obbligatorio
-          </div>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label>Comune *</label>
-          <input type="text" formControlName="comune">
-          <div class="error-message"
-               *ngIf="immobileForm.get('comune')?.errors?.['required'] && immobileForm.get('comune')?.touched">
-            Il comune è obbligatorio
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Provincia *</label>
-          <input type="text" formControlName="provincia" maxlength="2" placeholder="XX">
-          <div class="error-message"
-               *ngIf="immobileForm.get('provincia')?.errors?.['required'] && immobileForm.get('provincia')?.touched">
-            La provincia è obbligatoria
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sezione Caratteristiche -->
-    <div class="form-section">
-      <h3>Caratteristiche Aggiuntive</h3>
-
-      <div class="checkboxes-grid">
-        <div class="checkbox-group">
-          <label>
-            <input type="checkbox" formControlName="postoAuto"> Posto Auto
-          </label>
-        </div>
-
-        <div class="checkbox-group">
-          <label>
-            <input type="checkbox" formControlName="giardino"> Giardino
-          </label>
-        </div>
-
-        <div class="checkbox-group">
-          <label>
-            <input type="checkbox" formControlName="terrazzo"> Terrazzo
-          </label>
-        </div>
-
-        <div class="checkbox-group">
-          <label>
-            <input type="checkbox" formControlName="ascensore"> Ascensore
-          </label>
-        </div>
-
-        <div class="checkbox-group">
-          <label>
-            <input type="checkbox" formControlName="cantina"> Cantina
-          </label>
-        </div>
-
-        <div class="checkbox-group">
-          <label>
-            <input type="checkbox" formControlName="riscaldamento"> Riscaldamento
-          </label>
-        </div>
-
-        <div class="checkbox-group">
-          <label>
-            <input type="checkbox" formControlName="climatizzazione"> Climatizzazione
-          </label>
-        </div>
-
-        <div class="checkbox-group">
-          <label>
-            <input type="checkbox" formControlName="allarme"> Allarme
-          </label>
-        </div>
-
-        <div class="checkbox-group">
-          <label>
-            <input type="checkbox" formControlName="sorveglianza"> Sorveglianza
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sezione Stato Immobile -->
-    <div class="form-section">
-      <h3>Condizione Immobile</h3>
-
       <div class="form-group">
-        <label>Stato Immobile *</label>
-        <select formControlName="statoImmobile">
-          <option value="" disabled>Scegli uno stato</option>
-          <option *ngFor="let stato of statoImmobileOptions" [value]="stato">
-            {{ stato | titlecase }}
-          </option>
+        <label for="prezzo">Prezzo</label>
+        <input id="prezzo" formControlName="prezzo" type="number" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="metriQuadri">Metri Quadri</label>
+        <input id="metriQuadri" formControlName="metriQuadri" type="number" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="numeroVani">Numero Vani</label>
+        <input id="numeroVani" formControlName="numeroVani" type="number" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="piano">Piano</label>
+        <input id="piano" formControlName="piano" type="number" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="via">Via</label>
+        <input id="via" formControlName="via" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="civico">Civico</label>
+        <input id="civico" formControlName="civico" type="number" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="comune">Comune</label>
+        <input id="comune" formControlName="comune" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="provincia">Provincia</label>
+        <input id="provincia" formControlName="provincia" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="postoAuto">Posto Auto</label>
+        <input id="postoAuto" formControlName="postoAuto" type="checkbox" class="form-check-input" />
+      </div>
+      <div class="form-group">
+        <label for="giardino">Giardino</label>
+        <input id="giardino" formControlName="giardino" type="checkbox" class="form-check-input" />
+      </div>
+      <div class="form-group">
+        <label for="terrazzo">Terrazzo</label>
+        <input id="terrazzo" formControlName="terrazzo" type="checkbox" class="form-check-input" />
+      </div>
+      <div class="form-group">
+        <label for="ascensore">Ascensore</label>
+        <input id="ascensore" formControlName="ascensore" type="checkbox" class="form-check-input" />
+      </div>
+      <div class="form-group">
+        <label for="cantina">Cantina</label>
+        <input id="cantina" formControlName="cantina" type="checkbox" class="form-check-input" />
+      </div>
+      <div class="form-group">
+        <label for="riscaldamento">Riscaldamento</label>
+        <input id="riscaldamento" formControlName="riscaldamento" type="checkbox" class="form-check-input" />
+      </div>
+      <div class="form-group">
+        <label for="climatizzazione">Climatizzazione</label>
+        <input id="climatizzazione" formControlName="climatizzazione" type="checkbox" class="form-check-input" />
+      </div>
+      <div class="form-group">
+        <label for="allarme">Allarme</label>
+        <input id="allarme" formControlName="allarme" type="checkbox" class="form-check-input" />
+      </div>
+      <div class="form-group">
+        <label for="sorveglianza">Sorveglianza</label>
+        <input id="sorveglianza" formControlName="sorveglianza" type="checkbox" class="form-check-input" />
+      </div>
+      <div class="form-group">
+        <label for="statoImmobile">Stato Immobile</label>
+        <select id="statoImmobile" formControlName="statoImmobile" class="form-control">
+          <option value="NUOVO">Nuovo</option>
+          <option value="USATO">Usato</option>
+          <option value="RISTRUTTURATO">Ristrutturato</option>
+          <option value="DA_RISTRUTTURARE">Da Ristrutturare</option>
         </select>
-        <div class="error-message"
-             *ngIf="immobileForm.get('statoImmobile')?.errors?.['required'] && immobileForm.get('statoImmobile')?.touched">
-          Lo stato dell'immobile è obbligatorio
-        </div>
       </div>
-    </div>
-
-    <button type="submit" class="submit-btn" [disabled]="immobileForm.invalid">
-      PUBBLICA ANNUNCIO
-    </button>
-  </form>
+      <button type="submit" class="btn btn-success">Invia</button>
+    </form>
+  </div>
 </div>
