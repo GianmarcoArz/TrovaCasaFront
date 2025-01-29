@@ -23,22 +23,17 @@ export interface iImmobili {
   allarme?: boolean;
   sorveglianza?: boolean;
   dataDiInserimento: Date;
-  tipoUser: TipoUser;
   statoImmobile: StatoImmobile;
   user: iUser;
   immagini: ImmagineImmobile[];
   disponibilita: iAppuntamento[];
 }
 
-export enum TipoUser {
-  PRIVATO = 'PRIVATO',
-  AGENZIA = 'AGENZIA'
-}
-
 export enum StatoImmobile {
   NUOVO = 'NUOVO',
   USATO = 'USATO',
-  RISTRUTTURATO = 'RISTRUTTURATO'
+  RISTRUTTURATO = 'RISTRUTTURATO',
+  RISTRUTTURARE = 'DA_RISTRUTTURARE'
 }
 
 export interface ImmagineImmobile {

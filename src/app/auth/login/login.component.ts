@@ -1,48 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { iLoginRequest } from '../../interfaces/i-login-request';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 
 @Component({
-  standalone: false,
+
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrl: './login.component.scss',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
+  formData: iLoginRequest = {
+    username: '',
+    password: '',
+  };
 
-  form!: FormGroup;
-  constructor(
-    private authSvc: AuthService,
-    private router: Router,
-    private fb: FormBuilder
-  ) {}
-
-  ngOnInit(): void {
-    this.form = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-    });
-  }
+  constructor(private authSvc: AuthService, private router: Router) {}
 
   login() {
-    if (this.form.invalid) {
-      alert('Per favore, riempi correttamente tutti i campi.');
-      return;
-    }
-
-    const loginData = this.form.value;
-    this.authSvc.login(loginData).pipe(take(1)).subscribe(
-      (res) => {
-        this.router.navigate(['/home']);
-        alert('Login effettuato correttamente');
-        console.log(res);
-      },
-      (err) => {
-        alert('Credenziali errate');
-        console.error(err);
-      }
-    );
-  }
+    this.authSvc.login(this.formData).pipe(take(1)).subscribe((data) => {
+      this.router.navigate(['/profilo']);
+      alert('login effettuato correttamente');
+    });
+  }
 }

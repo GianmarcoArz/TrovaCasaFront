@@ -1,7 +1,8 @@
 import { Component, NgModule } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { StatoImmobile, TipoUser } from '../../interfaces/i-immobili';
+import { StatoImmobile} from '../../interfaces/i-immobili';
 import { ImmobiliService } from '../../services/immobili.service';
+import { ImmobileDTO } from '../../interfaces/immobile-dto';
 
 @Component({
   standalone: false,
@@ -10,18 +11,20 @@ import { ImmobiliService } from '../../services/immobili.service';
   styleUrl: './profilo.component.scss'
 })
 export class ProfiloComponent {
-  immobileForm: FormGroup;
-  tipiUser = Object.values(TipoUser);
-  statiImmobile = Object.values(StatoImmobile);
-  showForm = false;
 
-  constructor(private fb: FormBuilder, private immobiliService: ImmobiliService) {
+  immobileForm: FormGroup;
+  statoImmobileOptions = Object.values(StatoImmobile);
+
+  constructor(
+    private fb: FormBuilder,
+    private immobiliService: ImmobiliService
+  ) {
     this.immobileForm = this.fb.group({
       titolo: ['', Validators.required],
       descrizione: ['', Validators.required],
-      prezzo: [null, Validators.required],
-      metriQuadri: [null, Validators.required],
-      numeroVani: [null, Validators.required],
+      prezzo: [null, [Validators.required, Validators.min(0)]],
+      metriQuadri: [null, [Validators.required, Validators.min(0)]],
+      numeroVani: [null, [Validators.required, Validators.min(0)]],
       piano: [null, Validators.required],
       via: ['', Validators.required],
       civico: [null, Validators.required],
@@ -36,30 +39,25 @@ export class ProfiloComponent {
       climatizzazione: [false],
       allarme: [false],
       sorveglianza: [false],
-      tipoUser: ['', Validators.required],
       statoImmobile: ['', Validators.required]
-    });
-  }
 
-  toggleForm() {
-    this.showForm = !this.showForm;
+    });
   }
 
   onSubmit() {
     if (this.immobileForm.valid) {
-      const immobile = {
-        ...this.immobileForm.value,
-        dataDiInserimento: new Date()
-      };
-
-      this.immobiliService.creaImmobile(immobile).subscribe({
+      const immobileDTO: ImmobileDTO = this.immobileForm.value;
+      this.immobiliService.creaAnnuncio(immobileDTO).subscribe({
         next: (response) => {
-          console.log('Immobile creato con successo', response);
+          alert('Annuncio creato con successo!');
           this.immobileForm.reset();
-          this.showForm = false;
         },
-        error: (error) => console.error('Errore nella creazione dell\'immobile', error)
+        error: (error) => {
+          console.error('Errore durante la creazione dell\'annuncio:', error);
+          alert('Si è verificato un errore. Controlla la console per i dettagli.');
+        }
       });
     }
   }
 }
+

@@ -47,30 +47,18 @@ export class AuthService {
   }
 
   login(authData: iLoginRequest) {
-    console.log('Dati di login:', authData);
     return this.http.post<iAccessData>(this.loginUrl, authData).pipe(
       tap((accessData) => {
-        console.log('Risposta del server:', accessData);
         this.authSubject$.next(accessData);
         localStorage.setItem('accessData', JSON.stringify(accessData));
 
-        const expDate = this.jwtHelper.getTokenExpirationDate(accessData.accessToken);
-        console.log('Data di scadenza del token:', expDate);
-
-        if (expDate instanceof Date && !isNaN(expDate.getTime())) {
-          this.autoLogout(expDate);
-        } else {
-          console.error('Errore: la data di scadenza del token non è valida');
-          this.logout();
-        }
-      }),
-      catchError((error) => {
-        console.error('Errore durante il login:', error);
-        alert('Errore durante il login. Riprova.');
-        return throwError(error);
-      })
-    );
-  }
+        const expDate = this.jwtHelper.getTokenExpirationDate(
+          accessData.accessToken
+        ) as Date;
+        //this.autoLogout(expDate);
+      })
+    );
+  }
 
 
   logout() {
@@ -79,28 +67,16 @@ export class AuthService {
     this.router.navigate(['/auth/login']);
   }
 
-
+/*
   autoLogout(expDate: Date) {
     clearTimeout(this.autoLogoutTimer);
-
-    if (!expDate || isNaN(expDate.getTime())) {
-      console.warn('Data di scadenza non valida, logout immediato');
-      this.logout();
-      return;
-    }
-
     const expMs = expDate.getTime() - new Date().getTime();
 
-    if (expMs > 0) {
-      console.log(`Token scadrà tra ${expMs / 1000} secondi`);
-      this.autoLogoutTimer = setTimeout(() => {
-        this.logout();
-      }, expMs);
-    } else {
-      console.warn('Il token è già scaduto, effettuando logout immediato');
+    this.autoLogoutTimer = setTimeout(() => {
       this.logout();
-    }
-  }
+    }, expMs);
+  }
+*/
   restoreUser() {
     const userJson: string | null = localStorage.getItem('accessData');
     if (!userJson) return;
