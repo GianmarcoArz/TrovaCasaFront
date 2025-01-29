@@ -25,7 +25,13 @@ const routes: Routes = [{ path: 'auth',
     loadChildren: () => import('./pages/profilo/profilo.module').then(m => m.ProfiloModule),
     canActivate:[GuestGuard],
     canActivateChild:[GuestGuard]
-   }
+   },
+    {
+      path: 'immobili',
+      loadChildren: () => import('./pages/immobili/immobili.module').then(m => m.ImmobiliModule),
+      canActivate:[GuestGuard],
+      canActivateChild:[GuestGuard]
+    }
   ];
 
 @NgModule({
