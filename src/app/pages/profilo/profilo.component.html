@@ -1,1 +1,98 @@
-<h1>PROFILO</h1>
+<div class="profilo-container">
+  <h1>PROFILO</h1>
+  <button (click)="toggleForm()" class="btn-primary">
+    {{ showForm ? 'Chiudi Form' : 'Crea Nuovo Immobile' }}
+  </button>
+
+  <form *ngIf="showForm" [formGroup]="immobileForm" (ngSubmit)="onSubmit()" class="immobile-form">
+    <div class="form-group">
+      <label for="titolo">Titolo*</label>
+      <input id="titolo" type="text" formControlName="titolo">
+    </div>
+
+    <div class="form-group">
+      <label for="descrizione">Descrizione*</label>
+      <textarea id="descrizione" formControlName="descrizione"></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="prezzo">Prezzo*</label>
+        <input id="prezzo" type="number" formControlName="prezzo">
+      </div>
+
+      <div class="form-group">
+        <label for="metriQuadri">Metri Quadri*</label>
+        <input id="metriQuadri" type="number" formControlName="metriQuadri">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="numeroVani">Numero Vani*</label>
+        <input id="numeroVani" type="number" formControlName="numeroVani">
+      </div>
+
+      <div class="form-group">
+        <label for="piano">Piano*</label>
+        <input id="piano" type="number" formControlName="piano">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="via">Via*</label>
+      <input id="via" type="text" formControlName="via">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="civico">Civico*</label>
+        <input id="civico" type="number" formControlName="civico">
+      </div>
+
+      <div class="form-group">
+        <label for="comune">Comune*</label>
+        <input id="comune" type="text" formControlName="comune">
+      </div>
+
+      <div class="form-group">
+        <label for="provincia">Provincia*</label>
+        <input id="provincia" type="text" formControlName="provincia">
+      </div>
+    </div>
+
+    <div class="checkbox-group">
+      <label><input type="checkbox" formControlName="postoAuto"> Posto Auto</label>
+      <label><input type="checkbox" formControlName="giardino"> Giardino</label>
+      <label><input type="checkbox" formControlName="terrazzo"> Terrazzo</label>
+      <label><input type="checkbox" formControlName="ascensore"> Ascensore</label>
+      <label><input type="checkbox" formControlName="cantina"> Cantina</label>
+      <label><input type="checkbox" formControlName="riscaldamento"> Riscaldamento</label>
+      <label><input type="checkbox" formControlName="climatizzazione"> Climatizzazione</label>
+      <label><input type="checkbox" formControlName="allarme"> Allarme</label>
+      <label><input type="checkbox" formControlName="sorveglianza"> Sorveglianza</label>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="tipoUser">Tipo Utente*</label>
+        <select id="tipoUser" formControlName="tipoUser">
+          <option value="">Seleziona</option>
+          <option *ngFor="let tipo of tipiUser" [value]="tipo">{{tipo}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="statoImmobile">Stato Immobile*</label>
+        <select id="statoImmobile" formControlName="statoImmobile">
+          <option value="">Seleziona</option>
+          <option *ngFor="let stato of statiImmobile" [value]="stato">{{stato}}</option>
+        </select>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="!immobileForm.valid" class="btn-submit">
+      Crea Immobile
+    </button>
+  </form>
+</div>
