@@ -91,4 +91,18 @@
       <button type="submit" class="btn btn-success">Invia</button>
     </form>
   </div>
+  <h2>I tuoi immobili</h2>
+  <div *ngIf="immobiliUser.length > 0; else noImmobili">
+    <div *ngFor="let immobile of immobiliUser" class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ immobile.titolo }}</h5>
+        <p class="card-text">{{ immobile.descrizione }}</p>
+        <p class="card-text"><strong>Prezzo:</strong> {{ immobile.prezzo }} €</p>
+        <!-- Add more fields as needed -->
+      </div>
+    </div>
+  </div>
+  <ng-template #noImmobili>
+    <p>Non hai ancora creato nessun immobile.</p>
+  </ng-template>
 </div>

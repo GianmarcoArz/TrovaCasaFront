@@ -12,6 +12,7 @@ import { ImmobileDTO } from '../../interfaces/immobile-dto';
 export class ProfiloComponent implements OnInit {
   showForm: boolean = false;
   immobileForm!: FormGroup;
+  immobiliUser: ImmobileDTO[] = [];
 
   constructor(private fb: FormBuilder, private immobiliService: ImmobiliService) {}
 
@@ -38,6 +39,8 @@ export class ProfiloComponent implements OnInit {
       sorveglianza: [false],
       statoImmobile: ['', Validators.required],
     });
+
+    this.loadImmobiliUser();
   }
 
   toggleForm(): void {
@@ -51,9 +54,16 @@ export class ProfiloComponent implements OnInit {
         alert('Annuncio creato con successo');
         this.showForm = false;
         this.immobileForm.reset();
+        this.loadImmobiliUser(); // Reload the user's properties
       }, error => {
         alert('Errore nella creazione dell\'annuncio');
       });
     }
+  }
+
+  loadImmobiliUser(): void {
+    this.immobiliService.getImmobiliUser().subscribe((data: ImmobileDTO[]) => {
+      this.immobiliUser = data;
+    });
   }
 }
