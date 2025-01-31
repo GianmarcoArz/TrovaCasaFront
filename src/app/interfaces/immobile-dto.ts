@@ -1,6 +1,8 @@
-import { StatoImmobile } from "./i-immobili";
+import { ImmagineImmobile, StatoImmobile } from "./i-immobili";
 
 export interface ImmobileDTO {
+  id: number; // New property
+
   titolo: string;
   descrizione: string;
   prezzo: number;
@@ -24,5 +26,7 @@ export interface ImmobileDTO {
   dataDiInserimento?: Date;
   userId?: number;
   expanded?: boolean; // New property
+  immagini?: ImmagineImmobile[]; // New property
+
 
 }

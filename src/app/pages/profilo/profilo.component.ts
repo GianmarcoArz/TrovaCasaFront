@@ -13,6 +13,7 @@ export class ProfiloComponent implements OnInit {
   showForm: boolean = false;
   immobileForm!: FormGroup;
   immobiliUser: ImmobileDTO[] = [];
+  selectedFile: File | null = null;
 
   constructor(private fb: FormBuilder, private immobiliService: ImmobiliService) {}
 
@@ -68,5 +69,22 @@ export class ProfiloComponent implements OnInit {
   }
   toggleDetails(immobile: ImmobileDTO): void {
     immobile.expanded = !immobile.expanded;
+  }
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+  }
+
+  uploadImmagine(immobileId: number): void {
+    if (this.selectedFile) {
+      this.immobiliService.uploadImmagine(immobileId, this.selectedFile, true).subscribe(response => {
+        alert('Immagine caricata con successo');
+        this.selectedFile = null;
+        this.loadImmobiliUser(); // Reload the user's properties
+      }, error => {
+        alert('Errore nel caricamento dell\'immagine');
+      });
+    } else {
+      alert('Seleziona un file prima di caricare');
+    }
   }
 }
