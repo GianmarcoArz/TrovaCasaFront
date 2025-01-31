@@ -66,4 +66,7 @@ export class ProfiloComponent implements OnInit {
       this.immobiliUser = data;
     });
   }
+  toggleDetails(immobile: ImmobileDTO): void {
+    immobile.expanded = !immobile.expanded;
+  }
 }

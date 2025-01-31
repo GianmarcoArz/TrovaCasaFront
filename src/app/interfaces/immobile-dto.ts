@@ -23,4 +23,6 @@ export interface ImmobileDTO {
   statoImmobile: StatoImmobile;
   dataDiInserimento?: Date;
   userId?: number;
+  expanded?: boolean; // New property
+
 }

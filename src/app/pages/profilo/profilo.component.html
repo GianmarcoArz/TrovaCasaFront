@@ -98,7 +98,29 @@
         <h5 class="card-title">{{ immobile.titolo }}</h5>
         <p class="card-text">{{ immobile.descrizione }}</p>
         <p class="card-text"><strong>Prezzo:</strong> {{ immobile.prezzo }} €</p>
-        <!-- Add more fields as needed -->
+        <button class="btn btn-link" (click)="toggleDetails(immobile)">
+          {{ immobile.expanded ? 'Mostra meno' : 'Mostra di più' }}
+        </button>
+        <div *ngIf="immobile.expanded">
+          <p class="card-text"><strong>Metri Quadri:</strong> {{ immobile.metriQuadri }}</p>
+          <p class="card-text"><strong>Numero Vani:</strong> {{ immobile.numeroVani }}</p>
+          <p class="card-text"><strong>Piano:</strong> {{ immobile.piano }}</p>
+          <p class="card-text"><strong>Via:</strong> {{ immobile.via }}</p>
+          <p class="card-text"><strong>Civico:</strong> {{ immobile.civico }}</p>
+          <p class="card-text"><strong>Comune:</strong> {{ immobile.comune }}</p>
+          <p class="card-text"><strong>Provincia:</strong> {{ immobile.provincia }}</p>
+          <p class="card-text"><strong>Posto Auto:</strong> {{ immobile.postoAuto ? 'Sì' : 'No' }}</p>
+          <p class="card-text"><strong>Giardino:</strong> {{ immobile.giardino ? 'Sì' : 'No' }}</p>
+          <p class="card-text"><strong>Terrazzo:</strong> {{ immobile.terrazzo ? 'Sì' : 'No' }}</p>
+          <p class="card-text"><strong>Ascensore:</strong> {{ immobile.ascensore ? 'Sì' : 'No' }}</p>
+          <p class="card-text"><strong>Cantina:</strong> {{ immobile.cantina ? 'Sì' : 'No' }}</p>
+          <p class="card-text"><strong>Riscaldamento:</strong> {{ immobile.riscaldamento ? 'Sì' : 'No' }}</p>
+          <p class="card-text"><strong>Climatizzazione:</strong> {{ immobile.climatizzazione ? 'Sì' : 'No' }}</p>
+          <p class="card-text"><strong>Allarme:</strong> {{ immobile.allarme ? 'Sì' : 'No' }}</p>
+          <p class="card-text"><strong>Sorveglianza:</strong> {{ immobile.sorveglianza ? 'Sì' : 'No' }}</p>
+          <p class="card-text"><strong>Stato Immobile:</strong> {{ immobile.statoImmobile }}</p>
+          <p class="card-text"><strong>Data di Inserimento:</strong> {{ immobile.dataDiInserimento | date }}</p>
+        </div>
       </div>
     </div>
   </div>
