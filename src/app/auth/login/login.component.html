@@ -1,20 +1,18 @@
 <div class="container">
   <h1>Login</h1>
-  <form>
+  <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
     <input
       type="email"
       class="form-control mb-3"
       placeholder="Email"
-      name="email"
-      [(ngModel)]="formData.username"
+      formControlName="username"
     />
     <input
       type="password"
       class="form-control mb-3"
       placeholder="Password"
-      name="password"
-      [(ngModel)]="formData.password"
+      formControlName="password"
     />
-    <button (click)="login()" class="btn btn-success">Accedi</button>
+    <button type="submit" class="btn btn-success">Accedi</button>
   </form>
 </div>

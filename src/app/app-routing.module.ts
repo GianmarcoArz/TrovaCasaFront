@@ -7,14 +7,14 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
-    canActivate: [GuestGuard],
+    canActivate: [GuestGuard], // Solo per utenti non loggati
     canActivateChild: [GuestGuard]
   },
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
-    canActivate: [GuestGuard],
-    canActivateChild: [GuestGuard]
+    canActivate: [AuthGuard], // Solo per utenti loggati
+    canActivateChild: [AuthGuard]
   },
   {
     path: '',
@@ -22,21 +22,21 @@ const routes: Routes = [
       import('./pages/landing-page/landing-page.module').then(
         (m) => m.LandingPageModule
       ),
-    canActivate: [GuestGuard],
-    canActivateChild: [GuestGuard]
   },
   {
     path: 'profilo',
     loadChildren: () => import('./pages/profilo/profilo.module').then(m => m.ProfiloModule),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard], // Solo per utenti loggati
     canActivateChild: [AuthGuard]
   },
   {
     path: 'immobili',
     loadChildren: () => import('./pages/immobili/immobili.module').then(m => m.ImmobiliModule),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard], // Solo per utenti loggati
     canActivateChild: [AuthGuard]
-  }
+
+  },
+
 ];
 
 @NgModule({

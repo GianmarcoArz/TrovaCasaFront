@@ -24,13 +24,13 @@ export class GuestGuard implements CanActivate, CanActivateChild {
     return this.authSvc.isLoggedIn$.pipe(
       map((isLoggedIn) => {
         if (isLoggedIn) {
-          this.router.navigate(['/landing-page']);
+          this.router.navigate(['/home']); // Reindirizza gli utenti loggati alla home
         }
-
         return !isLoggedIn;
       })
     );
   }
+
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

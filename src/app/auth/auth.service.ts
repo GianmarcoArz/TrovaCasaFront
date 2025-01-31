@@ -49,7 +49,7 @@ import { iLoginRequest } from '../interfaces/i-login-request';
     login(authData: iLoginRequest) {
       return this.http.post<iAccessData>(this.loginUrl, authData).pipe(
         tap((accessData) => {
-          this.authSubject$.next(accessData);
+          this.authSubject$.next(accessData); // Aggiorna lo stato di login
           localStorage.setItem('accessData', JSON.stringify(accessData));
           const expDate = this.jwtHelper.getTokenExpirationDate(
             accessData.accessToken
@@ -58,7 +58,6 @@ import { iLoginRequest } from '../interfaces/i-login-request';
         })
       );
     }
-
     logout() {
       this.authSubject$.next(null);
       localStorage.removeItem('accessData');
@@ -82,7 +81,7 @@ import { iLoginRequest } from '../interfaces/i-login-request';
         localStorage.removeItem('accessData');
         return;
       }
-      this.authSubject$.next(accessData);
+      this.authSubject$.next(accessData); // Aggiorna lo stato di login
     }
 
     getCurrentUser(): iUser | null {
