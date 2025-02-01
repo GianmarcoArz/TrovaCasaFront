@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { ImmobileDTO } from '../interfaces/immobile-dto';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,8 @@ export class ImmobiliService {
   private apiUrl = environment.ImmobileUrl;
   private immobiliUserUrl = environment.immobiliUserUrl;
   private uploadImmagineUrl = environment.uploadImmagineUrl;
+  imagePreviewsMap: { [key: number]: string[] } = {};
+
 
 
   constructor(private http: HttpClient) { }
@@ -20,13 +22,24 @@ export class ImmobiliService {
   }
 
   getImmobiliUser(): Observable<ImmobileDTO[]> {
-    return this.http.get<ImmobileDTO[]>(this.immobiliUserUrl);
+    return this.http.get<ImmobileDTO[]>(this.immobiliUserUrl).pipe(
+      catchError(this.handleError)
+    );
   }
-  uploadImmagine(immobileId: number, file: File, copertina: boolean): Observable<any> {
+
+  private handleError(error: any): Observable<never> {
+    console.error('An error occurred:', error);
+    return throwError('Something bad happened; please try again later.');
+  }
+
+  uploadImmagine(immobileId: number, files: File[], copertina: boolean): Observable<any> {
     const formData = new FormData();
-    formData.append('file', file);
+    files.forEach(file => formData.append('files', file));
     formData.append('copertina', String(copertina));
     const url = this.uploadImmagineUrl.replace('{immobileId}', immobileId.toString());
     return this.http.post(url, formData);
+  }
+  hasImagePreviews(immobileId: number): boolean {
+    return this.imagePreviewsMap[immobileId] && this.imagePreviewsMap[immobileId].length > 0;
   }
 }

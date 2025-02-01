@@ -7,13 +7,14 @@ import { ImmobileDTO } from '../../interfaces/immobile-dto';
   standalone: false,
   selector: 'app-profilo',
   templateUrl: './profilo.component.html',
-  styleUrl: './profilo.component.scss'
+  styleUrls: ['./profilo.component.scss']
 })
 export class ProfiloComponent implements OnInit {
   showForm: boolean = false;
   immobileForm!: FormGroup;
   immobiliUser: ImmobileDTO[] = [];
-  selectedFile: File | null = null;
+  imagePreviewsMap: { [key: number]: string[] } = {};
+  selectedFilesMap: { [key: number]: File[] } = {};
 
   constructor(private fb: FormBuilder, private immobiliService: ImmobiliService) {}
 
@@ -63,28 +64,52 @@ export class ProfiloComponent implements OnInit {
   }
 
   loadImmobiliUser(): void {
-    this.immobiliService.getImmobiliUser().subscribe((data: ImmobileDTO[]) => {
-      this.immobiliUser = data;
-    });
+    this.immobiliService.getImmobiliUser().subscribe(
+      (data: ImmobileDTO[]) => {
+        this.immobiliUser = data;
+      },
+      (error) => {
+        console.error('Error loading user properties:', error);
+        alert('Errore nel caricamento degli immobili');
+      }
+    );
   }
+
   toggleDetails(immobile: ImmobileDTO): void {
     immobile.expanded = !immobile.expanded;
   }
-  onFileSelected(event: any): void {
-    this.selectedFile = event.target.files[0];
+
+  onFileSelected(event: any, immobileId: number): void {
+    const selectedFiles = Array.from(event.target.files) as File[];
+    this.selectedFilesMap[immobileId] = selectedFiles;
+    this.imagePreviewsMap[immobileId] = [];
+
+    for (let file of selectedFiles) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imagePreviewsMap[immobileId].push(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   uploadImmagine(immobileId: number): void {
-    if (this.selectedFile) {
-      this.immobiliService.uploadImmagine(immobileId, this.selectedFile, true).subscribe(response => {
-        alert('Immagine caricata con successo');
-        this.selectedFile = null;
+    const selectedFiles = this.selectedFilesMap[immobileId];
+    if (selectedFiles && selectedFiles.length > 0) {
+      this.immobiliService.uploadImmagine(immobileId, selectedFiles, true).subscribe(response => {
+        alert('Immagini caricate con successo');
+        this.selectedFilesMap[immobileId] = [];
+        this.imagePreviewsMap[immobileId] = [];
         this.loadImmobiliUser(); // Reload the user's properties
       }, error => {
-        alert('Errore nel caricamento dell\'immagine');
+        alert('Errore nel caricamento delle immagini');
       });
     } else {
-      alert('Seleziona un file prima di caricare');
+      alert('Seleziona almeno un file prima di caricare');
     }
+  }
+
+  hasImagePreviews(immobileId: number): boolean {
+    return this.imagePreviewsMap[immobileId] && this.imagePreviewsMap[immobileId].length > 0;
   }
 }
