@@ -38,7 +38,7 @@ export enum StatoImmobile {
 
 export interface ImmagineImmobile {
   id: number;
-  url: string;
+  urlImmagine: string;
   copertina:String;
   immobile: iImmobili;
 }

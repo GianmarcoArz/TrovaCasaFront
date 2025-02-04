@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImmobiliService } from '../../services/immobili.service';
 import { ImmobileDTO } from '../../interfaces/immobile-dto';
+import { ImmagineImmobile } from '../../interfaces/i-immobili';
 
 @Component({
   standalone: false,
@@ -67,10 +68,28 @@ export class ProfiloComponent implements OnInit {
     this.immobiliService.getImmobiliUser().subscribe(
       (data: ImmobileDTO[]) => {
         this.immobiliUser = data;
+        this.immobiliUser.forEach(immobile => {
+          this.loadImmaginiForImmobile(immobile.id);
+        });
       },
       (error) => {
         console.error('Error loading user properties:', error);
         alert('Errore nel caricamento degli immobili');
+      }
+    );
+  }
+
+    loadImmaginiForImmobile(immobileId: number): void {
+    this.immobiliService.getImmaginiByImmobileId(immobileId).subscribe(
+      (immagini: ImmagineImmobile[]) => {
+        this.imagePreviewsMap[immobileId] = immagini.map(img => img.urlImmagine);
+        const immobile = this.immobiliUser.find(i => i.id === immobileId);
+        if (immobile) {
+          immobile.immagini = immagini;
+        }
+      },
+      (error) => {
+        console.error('Error loading images for immobile:', error);
       }
     );
   }

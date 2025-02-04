@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { ImmobileDTO } from '../interfaces/immobile-dto';
 import { catchError, Observable, throwError } from 'rxjs';
+import { ImmagineImmobile } from '../interfaces/i-immobili';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class ImmobiliService {
   private apiUrl = environment.ImmobileUrl;
   private immobiliUserUrl = environment.immobiliUserUrl;
   private uploadImmagineUrl = environment.uploadImmagineUrl;
+  private getImmaginiUrl = environment.getImmaginiUrl;
   imagePreviewsMap: { [key: number]: string[] } = {};
 
 
@@ -23,6 +25,12 @@ export class ImmobiliService {
 
   getImmobiliUser(): Observable<ImmobileDTO[]> {
     return this.http.get<ImmobileDTO[]>(this.immobiliUserUrl).pipe(
+      catchError(this.handleError)
+    );
+  }
+  getImmaginiByImmobileId(immobileId: number): Observable<ImmagineImmobile[]> {
+    const url = this.getImmaginiUrl.replace('{immobileId}', immobileId.toString());
+    return this.http.get<ImmagineImmobile[]>(url).pipe(
       catchError(this.handleError)
     );
   }

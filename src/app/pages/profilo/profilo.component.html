@@ -139,25 +139,15 @@
             </div>
           </div>
           <div class="image-gallery">
-            <img *ngFor="let img of immobile.immagini" [src]="img.url" class="image-thumbnail" />
+            <img *ngFor="let img of immobile.immagini" [src]="img.urlImmagine" class="image-thumbnail" />
           </div>
           <p class="card-text"><strong>Stato Immobile:</strong> {{ immobile.statoImmobile }}</p>
           <p class="card-text"><strong>Data di Inserimento:</strong> {{ immobile.dataDiInserimento | date }}</p>
-          <div>
-            <input type="file" (change)="onFileSelected($event, immobile.id)" multiple />
-            <button class="btn btn-primary" (click)="uploadImmagine(immobile.id)">Carica Immagini</button>
-          </div>
-          <div *ngIf="hasImagePreviews(immobile.id)">
-            <h3>Anteprima Immagini</h3>
-            <div class="image-preview-container">
-              <img *ngFor="let preview of imagePreviewsMap[immobile.id]" [src]="preview" class="image-preview" />
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
   <ng-template #noImmobili>
-    <p class="text-center animate__animated animate__fadeIn">Non hai ancora creato nessun immobile.</p>
+    <p class="text-center">Non hai immobili.</p>
   </ng-template>
 </div>
