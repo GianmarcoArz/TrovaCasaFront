@@ -27,6 +27,7 @@ export class ImmobiliService {
   creaAnnuncio(immobileDTO: ImmobileDTO): Observable<any> {
     return this.http.post(`${this.apiUrl}`, immobileDTO);
   }
+
   creaDisponibilita(immobileId: number, appuntamentoDTO: AppuntamentoDTO): Observable<any> {
     const url = this.creaDisponibilitaUrl.replace('{immobileId}', immobileId.toString());
     return this.http.post(url, appuntamentoDTO).pipe(
