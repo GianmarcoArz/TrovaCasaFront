@@ -6,5 +6,6 @@ export const environment = {
   uploadImmagineUrl: 'http://localhost:8080/immobili/{immobileId}/upload_immagine',
   getImmaginiUrl: 'http://localhost:8080/immagini_immobili/{immobileId}',
   deleteImmobileUrl: 'http://localhost:8080/immobili/elimina_immobile/{immobileId}',
-  updateImmobileUrl: 'http://localhost:8080/immobili/aggiorna_immobile/{immobileId}'
+  updateImmobileUrl: 'http://localhost:8080/immobili/aggiorna_immobile/{immobileId}',
+   creaDisponibilitaUrl: 'http://localhost:8080/api/appuntamenti/{immobileId}/crea_disponibilita'
 };

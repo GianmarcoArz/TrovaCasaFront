@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment.development';
 import { ImmobileDTO } from '../interfaces/immobile-dto';
 import { catchError, Observable, throwError } from 'rxjs';
 import { ImmagineImmobile } from '../interfaces/i-immobili';
+import { AppuntamentoDTO } from '../interfaces/appuntamento-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class ImmobiliService {
   private getImmaginiUrl = environment.getImmaginiUrl;
   private updateImmobileUrl = environment.updateImmobileUrl;
   private deleteImmobileUrl = environment.deleteImmobileUrl;
+  private creaDisponibilitaUrl = environment.creaDisponibilitaUrl;
 
   imagePreviewsMap: { [key: number]: string[] } = {};
 
@@ -24,6 +26,12 @@ export class ImmobiliService {
 
   creaAnnuncio(immobileDTO: ImmobileDTO): Observable<any> {
     return this.http.post(`${this.apiUrl}`, immobileDTO);
+  }
+  creaDisponibilita(immobileId: number, appuntamentoDTO: AppuntamentoDTO): Observable<any> {
+    const url = this.creaDisponibilitaUrl.replace('{immobileId}', immobileId.toString());
+    return this.http.post(url, appuntamentoDTO).pipe(
+      catchError(this.handleError)
+    );
   }
 
   getImmobiliUser(): Observable<ImmobileDTO[]> {

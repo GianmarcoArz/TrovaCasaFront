@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImmobiliService } from '../../services/immobili.service';
 import { ImmobileDTO } from '../../interfaces/immobile-dto';
 import { ImmagineImmobile } from '../../interfaces/i-immobili';
+import { AppuntamentoDTO } from '../../interfaces/appuntamento-dto';
 
 @Component({
   standalone: false,
@@ -13,6 +14,8 @@ import { ImmagineImmobile } from '../../interfaces/i-immobili';
 export class ProfiloComponent implements OnInit {
   showForm: boolean = false;
   immobileForm!: FormGroup;
+  showDisponibilitaForm: boolean = false;
+  disponibilitaForm!: FormGroup;
   immobiliUser: ImmobileDTO[] = [];
   imagePreviewsMap: { [key: number]: string[] } = {};
   selectedFilesMap: { [key: number]: File[] } = {};
@@ -21,6 +24,13 @@ export class ProfiloComponent implements OnInit {
   constructor(private fb: FormBuilder, private immobiliService: ImmobiliService) {}
 
   ngOnInit(): void {
+
+    this.disponibilitaForm = this.fb.group({
+      dataDisponibilita: ['', Validators.required],
+      oraInizio: ['', Validators.required],
+      oraFine: ['', Validators.required]
+    });
+
     this.immobileForm = this.fb.group({
       titolo: ['', Validators.required],
       descrizione: ['', Validators.required],
@@ -50,6 +60,23 @@ export class ProfiloComponent implements OnInit {
   toggleForm(): void {
     this.showForm = !this.showForm;
   }
+  toggleDisponibilitaForm(immobileId: number): void {
+    this.selectedImmobileId = immobileId;
+    this.showDisponibilitaForm = !this.showDisponibilitaForm;
+  }
+  creaDisponibilita(immobileId: number): void {
+    if (this.disponibilitaForm.valid) {
+      const disponibilitaData: AppuntamentoDTO = this.disponibilitaForm.value;
+      this.immobiliService.creaDisponibilita(immobileId, disponibilitaData).subscribe(response => {
+        alert('Disponibilità creata con successo');
+        this.showDisponibilitaForm = false;
+        this.disponibilitaForm.reset();
+      }, error => {
+        alert('Errore nella creazione della disponibilità');
+      });
+    }
+  }
+
 
   creaAnnuncio(): void {
     if (this.immobileForm.valid) {
@@ -59,6 +86,7 @@ export class ProfiloComponent implements OnInit {
         this.showForm = false;
         this.immobileForm.reset();
         this.loadImmobiliUser(); // Reload the user's properties
+
       }, error => {
         alert('Errore nella creazione dell\'annuncio');
       });
