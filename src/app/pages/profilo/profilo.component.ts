@@ -16,6 +16,7 @@ export class ProfiloComponent implements OnInit {
   immobiliUser: ImmobileDTO[] = [];
   imagePreviewsMap: { [key: number]: string[] } = {};
   selectedFilesMap: { [key: number]: File[] } = {};
+  selectedImmobileId: number | null = null;
 
   constructor(private fb: FormBuilder, private immobiliService: ImmobiliService) {}
 
@@ -79,7 +80,7 @@ export class ProfiloComponent implements OnInit {
     );
   }
 
-    loadImmaginiForImmobile(immobileId: number): void {
+  loadImmaginiForImmobile(immobileId: number): void {
     this.immobiliService.getImmaginiByImmobileId(immobileId).subscribe(
       (immagini: ImmagineImmobile[]) => {
         this.imagePreviewsMap[immobileId] = immagini.map(img => img.urlImmagine);
@@ -130,5 +131,26 @@ export class ProfiloComponent implements OnInit {
 
   hasImagePreviews(immobileId: number): boolean {
     return this.imagePreviewsMap[immobileId] && this.imagePreviewsMap[immobileId].length > 0;
+  }
+
+  editImmobile(immobile: ImmobileDTO): void {
+    this.selectedImmobileId = immobile.id;
+    this.immobileForm.patchValue(immobile);
+    this.showForm = true;
+  }
+
+  aggiornaImmobile(): void {
+    if (this.immobileForm.valid && this.selectedImmobileId !== null) {
+      const immobileData: ImmobileDTO = this.immobileForm.value;
+      this.immobiliService.aggiornaImmobile(this.selectedImmobileId, immobileData).subscribe(response => {
+        alert('Immobile aggiornato con successo');
+        this.showForm = false;
+        this.immobileForm.reset();
+        this.selectedImmobileId = null;
+        this.loadImmobiliUser(); // Reload the user's properties
+      }, error => {
+        alert('Errore nell\'aggiornamento dell\'immobile');
+      });
+    }
   }
 }

@@ -13,6 +13,8 @@ export class ImmobiliService {
   private immobiliUserUrl = environment.immobiliUserUrl;
   private uploadImmagineUrl = environment.uploadImmagineUrl;
   private getImmaginiUrl = environment.getImmaginiUrl;
+  private updateImmobileUrl = environment.updateImmobileUrl;
+
   imagePreviewsMap: { [key: number]: string[] } = {};
 
 
@@ -31,6 +33,12 @@ export class ImmobiliService {
   getImmaginiByImmobileId(immobileId: number): Observable<ImmagineImmobile[]> {
     const url = this.getImmaginiUrl.replace('{immobileId}', immobileId.toString());
     return this.http.get<ImmagineImmobile[]>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+  aggiornaImmobile(immobileId: number, immobileDTO: ImmobileDTO): Observable<any> {
+    const url = this.updateImmobileUrl.replace('{immobileId}', immobileId.toString());
+    return this.http.put(url, immobileDTO).pipe(
       catchError(this.handleError)
     );
   }
