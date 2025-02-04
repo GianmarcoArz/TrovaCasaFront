@@ -153,4 +153,15 @@ export class ProfiloComponent implements OnInit {
       });
     }
   }
+
+  deleteImmobile(id: number): void {
+    if (confirm('Sei sicuro di voler eliminare questo immobile?')) {
+      this.immobiliService.deleteImmobile(id).subscribe(response => {
+        alert('Immobile eliminato con successo');
+        this.loadImmobiliUser(); // Reload the user's properties
+      }, error => {
+        alert('Errore nell\'eliminazione dell\'immobile');
+      });
+    }
+  }
 }

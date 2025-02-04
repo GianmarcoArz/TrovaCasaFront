@@ -14,6 +14,7 @@ export class ImmobiliService {
   private uploadImmagineUrl = environment.uploadImmagineUrl;
   private getImmaginiUrl = environment.getImmaginiUrl;
   private updateImmobileUrl = environment.updateImmobileUrl;
+  private deleteImmobileUrl = environment.deleteImmobileUrl;
 
   imagePreviewsMap: { [key: number]: string[] } = {};
 
@@ -57,5 +58,11 @@ export class ImmobiliService {
   }
   hasImagePreviews(immobileId: number): boolean {
     return this.imagePreviewsMap[immobileId] && this.imagePreviewsMap[immobileId].length > 0;
+  }
+  deleteImmobile(id: number): Observable<any> {
+    const url = this.deleteImmobileUrl.replace('{immobileId}', id.toString());
+    return this.http.delete(url).pipe(
+      catchError(this.handleError)
+    );
   }
 }
