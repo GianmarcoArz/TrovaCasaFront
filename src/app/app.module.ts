@@ -14,7 +14,8 @@ import { NavbarComponent } from './main-components/navbar/navbar.component';
   declarations: [
     AppComponent,
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [
