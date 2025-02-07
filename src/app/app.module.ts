@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 import { TokenInterceptor } from './auth/token.interceptor';
 import { FooterComponent } from './main-components/footer/footer.component';
 import { NavbarComponent } from './main-components/navbar/navbar.component';
+import { SelectImmobileModule } from './pages/select-immobile/select-immobile.module';
 
 
 @NgModule({
@@ -17,7 +18,11 @@ import { NavbarComponent } from './main-components/navbar/navbar.component';
     NavbarComponent,
 
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule],
+  imports: [BrowserModule,
+      AppRoutingModule,
+      NgbModule,
+      SelectImmobileModule],
+
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
     {

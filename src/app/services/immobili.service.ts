@@ -20,6 +20,7 @@ export class ImmobiliService {
   private  aggiornaDisponibilitaUrl = environment.aggiornaDisponibilitaUrl;
   private  eliminaDisponibilitaUrl = environment.eliminaDisponibilitaUrl;
   private immobiliListUrl = environment.immobiliListUrl;
+  private singoloImmobileUrl = environment.singoloImmobileUrl;
 
   imagePreviewsMap: { [key: number]: string[] } = {};
 
@@ -98,4 +99,12 @@ getAllImmobili(): Observable<iImmobili[]> {
     catchError(this.handleError)
   );
 }
+
+getImmobileById(immobileId: number): Observable<ImmobileDTO> { // Aggiungi questa funzione
+  const url = this.singoloImmobileUrl.replace('{immobileId}', immobileId.toString());
+  return this.http.get<ImmobileDTO>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+
 }

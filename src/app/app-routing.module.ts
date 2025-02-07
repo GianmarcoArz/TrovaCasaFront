@@ -36,13 +36,6 @@ const routes: Routes = [
     canActivateChild: [AuthGuard]
 
   },
-  {
-    path: 'single-immobile',
-    loadChildren: () => import('./pages/select-immobile/select-immobile.module').then(m => m.SelectImmobileModule),
-    canActivate: [AuthGuard], // Solo per utenti loggati
-    canActivateChild: [AuthGuard]
-
-  },
 
 ];
 

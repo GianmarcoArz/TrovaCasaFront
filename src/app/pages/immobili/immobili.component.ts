@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ImmobiliService } from '../../services/immobili.service';
 import { iImmobili } from '../../interfaces/i-immobili';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: false,
@@ -11,7 +12,7 @@ import { iImmobili } from '../../interfaces/i-immobili';
 export class ImmobiliComponent implements OnInit {
   immobili: iImmobili[] = [];
 
-  constructor(private immobiliService: ImmobiliService) {}
+  constructor(private immobiliService: ImmobiliService,private router:Router) {}
 
   ngOnInit(): void {
     this.loadImmobili();
@@ -23,5 +24,9 @@ export class ImmobiliComponent implements OnInit {
     }, error => {
       console.error('Errore nel recupero degli immobili', error);
     });
+  }
+
+  viewImmobileDetails(immobileId: number): void {
+    this.router.navigate(['/immobili', immobileId]);
   }
 }

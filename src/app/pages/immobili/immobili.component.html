@@ -2,12 +2,13 @@
   <h1 class="text-center mb-4">Annunci Immobiliari</h1>
   <div class="row">
     <div class="col-md-4" *ngFor="let immobile of immobili">
-      <div class="card mb-4 h-100">
+      <div class="card mb-4 h-100" (click)="viewImmobileDetails(immobile.id)" >
         <img *ngIf="immobile.immagini.length > 0" [src]="immobile.immagini[0].urlImmagine" class="card-img-top" alt="Immagine immobile">
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">{{ immobile.titolo }}</h5>
           <p class="card-text">{{ immobile.descrizione }}</p>
           <p class="card-text"><strong>Prezzo:</strong> {{ immobile.prezzo }} €</p>
+
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import { iAppuntamento } from "./i-appuntamento";
 import { ImmagineImmobile, StatoImmobile } from "./i-immobili";
 
 export interface ImmobileDTO {
-  id: number; // New property
+  id: number;
 
   titolo: string;
   descrizione: string;
@@ -25,9 +25,9 @@ export interface ImmobileDTO {
   sorveglianza: boolean;
   statoImmobile: StatoImmobile;
   dataDiInserimento?: Date;
-  userId?: number;
-  expanded?: boolean; // New property
-  immagini?: ImmagineImmobile[]; // New property
+  userId: number;
+  expanded: boolean;
+  immagini: ImmagineImmobile[];
   disponibilita: iAppuntamento[];
 
 
