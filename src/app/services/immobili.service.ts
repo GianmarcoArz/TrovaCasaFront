@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { ImmobileDTO } from '../interfaces/immobile-dto';
 import { catchError, Observable, throwError } from 'rxjs';
-import { ImmagineImmobile } from '../interfaces/i-immobili';
+import { iImmobili, ImmagineImmobile } from '../interfaces/i-immobili';
 import { AppuntamentoDTO } from '../interfaces/appuntamento-dto';
 
 @Injectable({
@@ -19,6 +19,7 @@ export class ImmobiliService {
   private creaDisponibilitaUrl = environment.creaDisponibilitaUrl;
   private  aggiornaDisponibilitaUrl = environment.aggiornaDisponibilitaUrl;
   private  eliminaDisponibilitaUrl = environment.eliminaDisponibilitaUrl;
+  private immobiliListUrl = environment.immobiliListUrl;
 
   imagePreviewsMap: { [key: number]: string[] } = {};
 
@@ -90,4 +91,11 @@ export class ImmobiliService {
       catchError(this.handleError)
     );
   }
+
+/* per la pagina immobili */
+getAllImmobili(): Observable<iImmobili[]> {
+  return this.http.get<iImmobili[]>(this.immobiliListUrl).pipe(
+    catchError(this.handleError)
+  );
+}
 }

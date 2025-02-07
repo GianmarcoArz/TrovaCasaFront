@@ -1,1 +1,27 @@
-<h1>PAGINA IMMOBILI</h1>
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Annunci Immobiliari</h1>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let immobile of immobili">
+      <div class="card mb-4">
+        <img *ngIf="immobile.immagini.length > 0" [src]="immobile.immagini[0].urlImmagine" class="card-img-top" alt="Immagine immobile">
+        <div class="card-body">
+          <h5 class="card-title">{{ immobile.titolo }}</h5>
+          <p class="card-text">{{ immobile.descrizione }}</p>
+          <p class="card-text"><strong>Prezzo:</strong> {{ immobile.prezzo }} €</p>
+          <p class="card-text"><strong>Metri Quadri:</strong> {{ immobile.metriQuadri }} m²</p>
+          <p class="card-text"><strong>Numero Vani:</strong> {{ immobile.numeroVani }}</p>
+          <p class="card-text"><strong>Comune:</strong> {{ immobile.comune }}</p>
+          <p class="card-text"><strong>Provincia:</strong> {{ immobile.provincia }}</p>
+          <div *ngIf="immobile.disponibilita && immobile.disponibilita.length > 0" class="mt-3">
+            <h6>Disponibilità:</h6>
+            <ul>
+              <li *ngFor="let disponibilita of immobile.disponibilita">
+                {{ disponibilita.dataDisponibilita | date }} - {{ disponibilita.oraInizio }} alle {{ disponibilita.oraFine }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

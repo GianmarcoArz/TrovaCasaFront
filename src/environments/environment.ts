@@ -10,4 +10,7 @@ export const environment = {
   creaDisponibilitaUrl: 'http://localhost:8080/api/appuntamenti/{immobileId}/crea_disponibilita',
   aggiornaDisponibilitaUrl: 'http://localhost:8080/api/appuntamenti/{appuntamentoId}/aggiorna_disponibilita',
   eliminaDisponibilitaUrl: 'http://localhost:8080/api/appuntamenti/{appuntamentoId}/elimina_disponibilita',
+
+  immobiliListUrl: 'http://localhost:8080/immobili/lista_Immobili'
+
 };
