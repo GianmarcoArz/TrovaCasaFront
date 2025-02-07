@@ -17,6 +17,8 @@ export class ImmobiliService {
   private updateImmobileUrl = environment.updateImmobileUrl;
   private deleteImmobileUrl = environment.deleteImmobileUrl;
   private creaDisponibilitaUrl = environment.creaDisponibilitaUrl;
+  private  aggiornaDisponibilitaUrl = environment.aggiornaDisponibilitaUrl;
+  private  eliminaDisponibilitaUrl = environment.eliminaDisponibilitaUrl;
 
   imagePreviewsMap: { [key: number]: string[] } = {};
 
@@ -31,6 +33,20 @@ export class ImmobiliService {
   creaDisponibilita(immobileId: number, appuntamentoDTO: AppuntamentoDTO): Observable<any> {
     const url = this.creaDisponibilitaUrl.replace('{immobileId}', immobileId.toString());
     return this.http.post(url, appuntamentoDTO).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  aggiornaDisponibilita(disponibilitaId: number, appuntamentoDTO: AppuntamentoDTO): Observable<any> {
+    const url = this.aggiornaDisponibilitaUrl.replace('{appuntamentoId}', disponibilitaId.toString());
+    return this.http.put(url, appuntamentoDTO).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  eliminaDisponibilita(disponibilitaId: number): Observable<any> {
+    const url = this.eliminaDisponibilitaUrl.replace('{appuntamentoId}', disponibilitaId.toString());
+    return this.http.delete(url).pipe(
       catchError(this.handleError)
     );
   }

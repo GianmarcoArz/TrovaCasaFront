@@ -7,5 +7,7 @@ export const environment = {
   getImmaginiUrl: 'http://localhost:8080/immagini_immobili/{immobileId}',
   deleteImmobileUrl: 'http://localhost:8080/immobili/elimina_immobile/{immobileId}',
   updateImmobileUrl: 'http://localhost:8080/immobili/aggiorna_immobile/{immobileId}',
-   creaDisponibilitaUrl: 'http://localhost:8080/api/appuntamenti/{immobileId}/crea_disponibilita'
+  creaDisponibilitaUrl: 'http://localhost:8080/api/appuntamenti/{immobileId}/crea_disponibilita',
+  aggiornaDisponibilitaUrl: 'http://localhost:8080/api/appuntamenti/{appuntamentoId}/aggiorna_disponibilita',
+  eliminaDisponibilitaUrl: 'http://localhost:8080/api/appuntamenti/{appuntamentoId}/elimina_disponibilita',
 };

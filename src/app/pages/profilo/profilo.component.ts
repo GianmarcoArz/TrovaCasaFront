@@ -14,18 +14,27 @@ import { AppuntamentoDTO } from '../../interfaces/appuntamento-dto';
 export class ProfiloComponent implements OnInit {
   showForm: boolean = false;
   immobileForm!: FormGroup;
-  showDisponibilitaForm: boolean = false;
-  disponibilitaForm!: FormGroup;
   immobiliUser: ImmobileDTO[] = [];
   imagePreviewsMap: { [key: number]: string[] } = {};
   selectedFilesMap: { [key: number]: File[] } = {};
   selectedImmobileId: number | null = null;
+  showDisponibilitaForm: boolean = false;
+  disponibilitaForm!: FormGroup;
+  showAggiornaDisponibilitaForm: boolean = false;
+  aggiornaDisponibilitaForm!: FormGroup;
+  selectedDisponibilitaId: number | null = null;
 
   constructor(private fb: FormBuilder, private immobiliService: ImmobiliService) {}
 
   ngOnInit(): void {
 
     this.disponibilitaForm = this.fb.group({
+      dataDisponibilita: ['', Validators.required],
+      oraInizio: ['', Validators.required],
+      oraFine: ['', Validators.required]
+    });
+
+    this.aggiornaDisponibilitaForm = this.fb.group({
       dataDisponibilita: ['', Validators.required],
       oraInizio: ['', Validators.required],
       oraFine: ['', Validators.required]
@@ -64,6 +73,13 @@ export class ProfiloComponent implements OnInit {
     this.selectedImmobileId = immobileId;
     this.showDisponibilitaForm = !this.showDisponibilitaForm;
   }
+
+  toggleAggiornaDisponibilitaForm(disponibilita: any): void {
+    this.selectedDisponibilitaId = disponibilita.id;
+    this.aggiornaDisponibilitaForm.patchValue(disponibilita);
+    this.showAggiornaDisponibilitaForm = !this.showAggiornaDisponibilitaForm;
+  }
+
   creaDisponibilita(immobileId: number): void {
     if (this.disponibilitaForm.valid) {
       const disponibilitaData: AppuntamentoDTO = this.disponibilitaForm.value;
@@ -76,7 +92,31 @@ export class ProfiloComponent implements OnInit {
       });
     }
   }
+  aggiornaDisponibilita(): void {
+    if (this.aggiornaDisponibilitaForm.valid && this.selectedDisponibilitaId !== null) {
+      const disponibilitaData: AppuntamentoDTO = this.aggiornaDisponibilitaForm.value;
+      this.immobiliService.aggiornaDisponibilita(this.selectedDisponibilitaId, disponibilitaData).subscribe(response => {
+        alert('Disponibilità aggiornata con successo');
+        this.showAggiornaDisponibilitaForm = false;
+        this.aggiornaDisponibilitaForm.reset();
+        this.selectedDisponibilitaId = null;
+        this.loadImmobiliUser(); // Reload the user's properties
+      }, error => {
+        alert('Errore nell\'aggiornamento della disponibilità');
+      });
+    }
+  }
 
+  eliminaDisponibilita(disponibilitaId: number): void {
+    if (confirm('Sei sicuro di voler eliminare questa disponibilità?')) {
+      this.immobiliService.eliminaDisponibilita(disponibilitaId).subscribe(response => {
+        alert('Disponibilità eliminata con successo');
+        this.loadImmobiliUser(); // Reload the user's properties
+      }, error => {
+        alert('Errore nell\'eliminazione della disponibilità');
+      });
+    }
+  }
 
   creaAnnuncio(): void {
     if (this.immobileForm.valid) {

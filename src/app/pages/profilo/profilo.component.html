@@ -163,8 +163,27 @@
               <ul>
                 <li *ngFor="let disponibilita of immobile.disponibilita">
                   {{ disponibilita.dataDisponibilita | date }} - {{ disponibilita.oraInizio }} alle {{ disponibilita.oraFine }}
+                  <button class="btn btn-primary btn-sm" (click)="toggleAggiornaDisponibilitaForm(disponibilita)">Aggiorna</button>
+                  <button class="btn btn-danger btn-sm" (click)="eliminaDisponibilita(disponibilita.id)">Elimina</button>
                 </li>
               </ul>
+            </div>
+            <div *ngIf="showAggiornaDisponibilitaForm" class="mt-3">
+              <form [formGroup]="aggiornaDisponibilitaForm" (ngSubmit)="aggiornaDisponibilita()">
+                <div class="form-group">
+                  <label for="dataDisponibilita">Data Disponibilità</label>
+                  <input id="dataDisponibilita" formControlName="dataDisponibilita" type="date" class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label for="oraInizio">Ora Inizio</label>
+                  <input id="oraInizio" formControlName="oraInizio" type="time" class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label for="oraFine">Ora Fine</label>
+                  <input id="oraFine" formControlName="oraFine" type="time" class="form-control" />
+                </div>
+                <button type="submit" class="btn btn-success">Aggiorna Disponibilità</button>
+              </form>
             </div>
           </div>
           <div class="image-gallery">
