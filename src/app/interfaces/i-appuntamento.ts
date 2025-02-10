@@ -1,4 +1,5 @@
 import { iImmobili } from "./i-immobili";
+import { iUser } from "./i-user";
 
 export interface iAppuntamento {
   id: number;
@@ -7,4 +8,6 @@ export interface iAppuntamento {
   oraFine: string;
   prenotato: boolean;
   immobile: iImmobili [];
+  creatoreAnnuncio: iUser;
+  utentePrenotato: iUser | null;
 }

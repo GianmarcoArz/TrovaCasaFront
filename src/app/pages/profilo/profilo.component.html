@@ -1,7 +1,9 @@
 <div class="container mt-5">
   <h1 class="text-center mb-4 animate__animated animate__fadeIn">Profilo</h1>
-  <button class="btn btn-primary btn-lg d-block mx-auto mb-4 animate__animated animate__bounceIn" (click)="toggleForm()">Crea Annuncio Immobile</button>
-
+  <div class="d-flex justify-content-center mb-4">
+    <button class="btn btn-primary btn-lg mx-2 animate__animated animate__bounceIn" (click)="toggleForm()">Crea Annuncio Immobile</button>
+    <button class="btn btn-secondary btn-lg mx-2 animate__animated animate__bounceIn" (click)="togglePrenotazioni()">Vedi Prenotazioni</button>
+  </div>
   <div *ngIf="showForm" class="card p-4 mb-4 animate__animated animate__fadeIn">
     <form [formGroup]="immobileForm" (ngSubmit)="selectedImmobileId ? aggiornaImmobile() : creaAnnuncio()">
       <div class="row">
@@ -103,6 +105,21 @@
       </div>
       <button type="submit" class="btn btn-success btn-block mt-3">{{ selectedImmobileId ? 'Aggiorna' : 'Invia' }}</button>
     </form>
+  </div>
+
+  <div *ngIf="showPrenotazioni" class="card p-4 mb-4 animate__animated animate__fadeIn">
+    <h2 class="text-center mb-4">Prenotazioni</h2>
+    <ul *ngIf="prenotazioni.length > 0; else noPrenotazioni">
+      <li *ngFor="let prenotazione of prenotazioni">
+        Data: {{ prenotazione.dataDisponibilita | date:'dd/MM/yyyy' }},
+        Ora Inizio: {{ prenotazione.oraInizio }},
+        Ora Fine: {{ prenotazione.oraFine }},
+        Prenotato da: {{ prenotazione.utentePrenotato?.nome}}
+      </li>
+    </ul>
+    <ng-template #noPrenotazioni>
+      <p class="text-center">Non ci sono prenotazioni.</p>
+    </ng-template>
   </div>
 
   <h2 class="text-center mb-4 animate__animated animate__fadeIn">I tuoi immobili</h2>

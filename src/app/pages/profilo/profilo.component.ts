@@ -13,8 +13,11 @@ import { AppuntamentoDTO } from '../../interfaces/appuntamento-dto';
 })
 export class ProfiloComponent implements OnInit {
   showForm: boolean = false;
+  showPrenotazioni: boolean = false;
+
   immobileForm!: FormGroup;
   immobiliUser: ImmobileDTO[] = [];
+  prenotazioni: AppuntamentoDTO[] = [];
   imagePreviewsMap: { [key: number]: string[] } = {};
   selectedFilesMap: { [key: number]: File[] } = {};
   selectedImmobileId: number | null = null;
@@ -69,6 +72,26 @@ export class ProfiloComponent implements OnInit {
   toggleForm(): void {
     this.showForm = !this.showForm;
   }
+
+  togglePrenotazioni(): void {
+    this.showPrenotazioni = !this.showPrenotazioni;
+    if (this.showPrenotazioni) {
+      this.loadPrenotazioni();
+    }
+  }
+
+  loadPrenotazioni(): void {
+    this.immobiliService.getPrenotazioni().subscribe(
+      (data: AppuntamentoDTO[]) => {
+        this.prenotazioni = data;
+      },
+      (error) => {
+        console.error('Errore nel caricamento delle prenotazioni:', error);
+        alert('Errore nel caricamento delle prenotazioni');
+      }
+    );
+  }
+
   toggleDisponibilitaForm(immobileId: number): void {
     this.selectedImmobileId = immobileId;
     this.showDisponibilitaForm = !this.showDisponibilitaForm;

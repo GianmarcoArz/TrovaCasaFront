@@ -14,5 +14,6 @@ export const environment = {
   immobiliListUrl: 'http://localhost:8080/immobili/lista_Immobili',
   singoloImmobileUrl: 'http://localhost:8080/immobili/{immobileId}',
   pronotaDisponibilitaUrl: 'http://localhost:8080/api/appuntamenti/{appuntamentoId}/prenota_disponibilita',
+  listaPrenotazioniUrl: 'http://localhost:8080/api/appuntamenti/vedi_prenotazioni',
 
 };

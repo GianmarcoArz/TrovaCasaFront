@@ -22,6 +22,8 @@ export class ImmobiliService {
   private immobiliListUrl = environment.immobiliListUrl;
   private singoloImmobileUrl = environment.singoloImmobileUrl;
   private pronotaDisponibilitaUrl = environment.pronotaDisponibilitaUrl;
+  private listaPrenotazioniUrl = environment.listaPrenotazioniUrl;
+
 
 
   imagePreviewsMap: { [key: number]: string[] } = {};
@@ -111,6 +113,11 @@ getImmobileById(immobileId: number): Observable<ImmobileDTO> {
 prenotaDisponibilita(appuntamentoId: number): Observable<any> {
   const url = this.pronotaDisponibilitaUrl.replace('{appuntamentoId}', appuntamentoId.toString());
   return this.http.post(url, {}).pipe(
+    catchError(this.handleError)
+  );
+}
+getPrenotazioni(): Observable<AppuntamentoDTO[]> {
+  return this.http.get<AppuntamentoDTO[]>(this.listaPrenotazioniUrl).pipe(
     catchError(this.handleError)
   );
 }
