@@ -1,48 +1,55 @@
-<header class="d-flex justify-content-center py-3 shadow-sm bg-white">
-  <ul class="nav nav-pills">
-    <li class="nav-item mx-2">
-      <a
-        routerLink="/home"
-        class="btn py-1 fw-bolder"
-        routerLinkActive="activeNav"
-        aria-current="page"
-        >Home</a
-      >
-    </li>
-    <li class="nav-item mx-2">
-      <a
-        routerLink="/profilo"
-        class="btn py-1 fw-bolder"
-        routerLinkActive="activeNav"
-        >profilo</a
-      >
-    </li>
-    <li class="nav-item mx-2">
-      <a
-        routerLink="/immobili"
-        class="btn py-1 fw-bolder"
-        routerLinkActive="activeNav"
-        >Immobili</a
-      >
-    </li>
-    <li *ngIf="!isLoggedIn" class="nav-item mx-2">
-      <a
-        routerLink="/auth/login"
-        class="btn py-1 fw-bolder"
-        routerLinkActive="activeNav"
-        >LogIn</a
-      >
-    </li>
-    <li *ngIf="!isLoggedIn" class="nav-item mx-2">
-      <a
-        routerLink="/auth/register"
-        class="btn py-1 fw-bolder"
-        routerLinkActive="activeNav"
-        >Register</a
-      >
-    </li>
-    <li *ngIf="isLoggedIn" (click)="logout()" class="nav-item mx-2">
-      <a class="btn py-1 fw-bolder" routerLinkActive="activeNav">Log out</a>
-    </li>
-  </ul>
+<header class="navbar-container shadow-sm bg-white">
+  <div class="container d-flex justify-content-between align-items-center">
+    <ul class="nav nav-pills">
+      <li class="nav-item mx-2">
+        <a
+          routerLink="/home"
+          class="btn py-1 fw-bolder"
+          routerLinkActive="activeNav"
+          aria-current="page"
+          >Home</a
+        >
+      </li>
+      <li class="nav-item mx-2">
+        <a
+          routerLink="/profilo"
+          class="btn py-1 fw-bolder"
+          routerLinkActive="activeNav"
+          >Profilo</a
+        >
+      </li>
+      <li class="nav-item mx-2">
+        <a
+          routerLink="/immobili"
+          class="btn py-1 fw-bolder"
+          routerLinkActive="activeNav"
+          >Immobili</a
+        >
+      </li>
+    </ul>
+    <div class="logo">
+      <img src="/assets/logo.png" alt="TrovaCasa Logo" />
+    </div>
+    <ul class="nav nav-pills">
+      <li *ngIf="!isLoggedIn" class="nav-item mx-2">
+        <a
+          routerLink="/auth/login"
+          class="btn py-1 fw-bolder"
+          routerLinkActive="activeNav"
+          >LogIn</a
+        >
+      </li>
+      <li *ngIf="!isLoggedIn" class="nav-item mx-2">
+        <a
+          routerLink="/auth/register"
+          class="btn py-1 fw-bolder"
+          routerLinkActive="activeNav"
+          >Register</a
+        >
+      </li>
+      <li *ngIf="isLoggedIn" (click)="logout()" class="nav-item mx-2">
+        <a class="btn py-1 fw-bolder" routerLinkActive="activeNav">Log out</a>
+      </li>
+    </ul>
+  </div>
 </header>

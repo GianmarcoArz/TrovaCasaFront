@@ -13,8 +13,8 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
-    canActivate: [AuthGuard], // Solo per utenti loggati
-    canActivateChild: [AuthGuard]
+    canActivate: [GuestGuard], // Solo per utenti loggati
+    canActivateChild: [GuestGuard]
   },
   {
     path: '',

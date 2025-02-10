@@ -1,0 +1,59 @@
+$primary-color: #192C40;
+$secondary-color: #FE6B33;
+$accent-color: #6F2960;
+$background-color: #FBFBFC;
+
+.container {
+  padding: 20px;
+}
+
+.text-center {
+  text-align: center;
+  color: $primary-color;
+
+  h2 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+}
+
+.video-container {
+  margin: 20px 0;
+  border: 2px solid $primary-color;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translateY(-10px);
+  }
+
+  .card-body {
+    padding: 20px;
+    background-color: $primary-color;
+    color: $background-color;
+    border-top: 5px solid $secondary-color;
+    border-radius: 10px 10px 0 0;
+
+    h5 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      color: $secondary-color;
+    }
+
+    p {
+      font-size: 1.1em;
+    }
+  }
+}
