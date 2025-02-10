@@ -1,18 +1,20 @@
-<div class="container">
-  <h1>Login</h1>
-  <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
-    <input
-      type="email"
-      class="form-control mb-3"
-      placeholder="Email"
-      formControlName="username"
-    />
-    <input
-      type="password"
-      class="form-control mb-3"
-      placeholder="Password"
-      formControlName="password"
-    />
-    <button type="submit" class="btn btn-success">Accedi</button>
-  </form>
+<div class="login-container">
+  <div class="login-card">
+    <h1>Login</h1>
+    <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
+      <input
+        type="email"
+        class="form-control mb-3"
+        placeholder="Username"
+        formControlName="username"
+      />
+      <input
+        type="password"
+        class="form-control mb-3"
+        placeholder="Password"
+        formControlName="password"
+      />
+      <button type="submit" class="btn btn-primary">Accedi</button>
+    </form>
+  </div>
 </div>

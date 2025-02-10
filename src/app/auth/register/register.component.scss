@@ -1,0 +1,89 @@
+$primary-color: #192C40;
+$secondary-color: #FE6B33;
+$accent-color: #6F2960;
+$background-color: #FBFBFC;
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, $primary-color, $accent-color);
+  animation: fadeIn 1s ease-in-out;
+}
+
+.register-card {
+  background-color: $background-color;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  animation: slideIn 0.5s ease-in-out;
+
+  h1 {
+    margin-bottom: 20px;
+    color: $primary-color;
+    animation: textFadeIn 1s ease-in-out;
+  }
+
+  .form-control {
+    border: 1px solid $primary-color;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: $secondary-color;
+      box-shadow: 0 0 5px rgba($secondary-color, 0.5);
+    }
+  }
+
+  .btn-primary {
+    background-color: $secondary-color;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: $background-color;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+
+    &:hover {
+      background-color: darken($secondary-color, 10%);
+      transform: scale(1.05);
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes textFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
