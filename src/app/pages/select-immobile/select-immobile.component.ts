@@ -19,10 +19,17 @@ export class SelectImmobileComponent implements OnInit {
     if (immobileId) {
       this.immobiliService.getImmobileById(+immobileId).subscribe(data => {
         this.immobile = data;
-        console.log('Immobile data:', this.immobile);
       }, error => {
         console.error('Errore nel recupero dell\'immobile', error);
       });
     }
+  }
+
+  prenotaDisponibilita(appuntamentoId: number): void {
+    this.immobiliService.prenotaDisponibilita(appuntamentoId).subscribe(() => {
+      alert('Prenotazione effettuata con successo');
+    }, error => {
+      console.error('Errore nella prenotazione della disponibilità', error);
+    });
   }
 }

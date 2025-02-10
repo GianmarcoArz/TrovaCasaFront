@@ -33,6 +33,7 @@
         Data: {{ disponibilita.dataDisponibilita | date:'dd/MM/yyyy' }},
         Ora Inizio: {{ disponibilita.oraInizio }},
         Ora Fine: {{ disponibilita.oraFine }}
+        <button (click)="prenotaDisponibilita(disponibilita.id)">Prenota</button>
       </li>
     </ul>
   </div>
