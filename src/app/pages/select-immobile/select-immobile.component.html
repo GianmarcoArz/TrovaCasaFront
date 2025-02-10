@@ -1,4 +1,10 @@
 <div *ngIf="immobile">
+  <div *ngIf="immobile.immagini.length">
+    <h3>Immagini:</h3>
+    <div *ngFor="let img of immobile.immagini">
+      <img [src]="img.urlImmagine" alt="Immagine immobile" class="img-thumbnail">
+    </div>
+  </div>
   <h1>{{ immobile.titolo }}</h1>
   <p>{{ immobile.descrizione }}</p>
   <p><strong>Prezzo:</strong> {{ immobile.prezzo }} €</p>
@@ -19,4 +25,15 @@
   <p><strong>Allarme:</strong> {{ immobile.allarme ? 'Sì' : 'No' }}</p>
   <p><strong>Sorveglianza:</strong> {{ immobile.sorveglianza ? 'Sì' : 'No' }}</p>
   <p><strong>Stato Immobile:</strong> {{ immobile.statoImmobile }}</p>
+
+  <div *ngIf="immobile.disponibilita.length">
+    <h3>Disponibilità:</h3>
+    <ul>
+      <li *ngFor="let disponibilita of immobile.disponibilita">
+        Data: {{ disponibilita.dataDisponibilita | date:'dd/MM/yyyy' }},
+        Ora Inizio: {{ disponibilita.oraInizio }},
+        Ora Fine: {{ disponibilita.oraFine }}
+      </li>
+    </ul>
+  </div>
 </div>

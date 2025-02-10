@@ -93,14 +93,14 @@ export class ImmobiliService {
     );
   }
 
-/* per la pagina immobili */
+
 getAllImmobili(): Observable<iImmobili[]> {
   return this.http.get<iImmobili[]>(this.immobiliListUrl).pipe(
     catchError(this.handleError)
   );
 }
 
-getImmobileById(immobileId: number): Observable<ImmobileDTO> { // Aggiungi questa funzione
+getImmobileById(immobileId: number): Observable<ImmobileDTO> {
   const url = this.singoloImmobileUrl.replace('{immobileId}', immobileId.toString());
   return this.http.get<ImmobileDTO>(url).pipe(
     catchError(this.handleError)
