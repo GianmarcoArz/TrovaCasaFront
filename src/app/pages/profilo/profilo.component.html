@@ -1,10 +1,11 @@
 <div class="container mt-5">
-  <h1 class="text-center mb-4 animate__animated animate__fadeIn">Profilo</h1>
-  <div class="d-flex justify-content-center mb-4">
-    <button class="btn btn-primary btn-lg mx-2 animate__animated animate__bounceIn" (click)="toggleForm()">Crea Annuncio Immobile</button>
-    <button class="btn btn-secondary btn-lg mx-2 animate__animated animate__bounceIn" (click)="togglePrenotazioni()">Vedi Prenotazioni</button>
+  <h1 class="header animate__animated animate__fadeIn">Profilo</h1>
+  <div class="action-buttons animate__animated animate__fadeIn">
+    <button class="btn-custom btn-primary" (click)="toggleForm()">Crea Annuncio Immobile</button>
+    <button class="btn-custom btn-secondary" (click)="togglePrenotazioni()">Vedi Prenotazioni</button>
   </div>
-  <div *ngIf="showForm" class="card p-4 mb-4 animate__animated animate__fadeIn">
+
+  <div *ngIf="showForm" class="form-container animate__animated animate__fadeIn">
     <form [formGroup]="immobileForm" (ngSubmit)="selectedImmobileId ? aggiornaImmobile() : creaAnnuncio()">
       <div class="row">
         <div class="col-md-6">
@@ -103,7 +104,7 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-success btn-block mt-3">{{ selectedImmobileId ? 'Aggiorna' : 'Invia' }}</button>
+      <button type="submit" class="btn-custom btn-success mt-3">{{ selectedImmobileId ? 'Aggiorna' : 'Invia' }}</button>
     </form>
   </div>
 
@@ -124,35 +125,37 @@
 
   <h2 class="text-center mb-4 animate__animated animate__fadeIn">I tuoi immobili</h2>
   <div *ngIf="immobiliUser.length; else noImmobili">
-    <div *ngFor="let immobile of immobiliUser" class="card mb-4 animate__animated animate__fadeInUp">
-      <button class="btn btn-secondary" (click)="toggleDisponibilitaForm(immobile.id)">Crea Disponibilità</button>
-        <div *ngIf="selectedImmobileId === immobile.id && showDisponibilitaForm" class="mt-3">
-          <form [formGroup]="disponibilitaForm" (ngSubmit)="creaDisponibilita(immobile.id)">
-            <div class="form-group">
-              <label for="dataDisponibilita">Data Disponibilità</label>
-              <input id="dataDisponibilita" formControlName="dataDisponibilita" type="date" class="form-control" />
-            </div>
-            <div class="form-group">
-              <label for="oraInizio">Ora Inizio</label>
-              <input id="oraInizio" formControlName="oraInizio" type="time" class="form-control" />
-            </div>
-            <div class="form-group">
-              <label for="oraFine">Ora Fine</label>
-              <input id="oraFine" formControlName="oraFine" type="time" class="form-control" />
-            </div>
-            <button type="submit" class="btn btn-success">Crea Disponibilità</button>
-          </form>
-        </div>
-
-      <div class="card-body">
+    <div *ngFor="let immobile of immobiliUser" class="property-card animate__animated animate__fadeInUp">
+      <div class="property-header">
         <h5 class="card-title">{{ immobile.titolo }}</h5>
+        <button class="btn-custom btn-secondary" (click)="toggleDisponibilitaForm(immobile.id)">Crea Disponibilità</button>
+      </div>
+      <div *ngIf="selectedImmobileId === immobile.id && showDisponibilitaForm" class="availability-container">
+        <form [formGroup]="disponibilitaForm" (ngSubmit)="creaDisponibilita(immobile.id)">
+          <div class="form-group">
+            <label for="dataDisponibilita">Data Disponibilità</label>
+            <input id="dataDisponibilita" formControlName="dataDisponibilita" type="date" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="oraInizio">Ora Inizio</label>
+            <input id="oraInizio" formControlName="oraInizio" type="time" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="oraFine">Ora Fine</label>
+            <input id="oraFine" formControlName="oraFine" type="time" class="form-control" />
+          </div>
+          <button type="submit" class="btn-custom btn-success">Crea Disponibilità</button>
+        </form>
+      </div>
+
+      <div class="property-content">
         <p class="card-text">{{ immobile.descrizione }}</p>
         <p class="card-text"><strong>Prezzo:</strong> {{ immobile.prezzo }} €</p>
-        <button class="btn btn-link" (click)="toggleDetails(immobile)">
+        <button class="btn-custom btn-link" (click)="toggleDetails(immobile)">
           {{ immobile.expanded ? 'Mostra meno' : 'Mostra di più' }}
         </button>
-        <button class="btn btn-primary" (click)="editImmobile(immobile)">Modifica</button>
-        <button class="btn btn-danger" (click)="deleteImmobile(immobile.id)">Elimina</button>
+        <button class="btn-custom btn-primary m-4" (click)="editImmobile(immobile)">Modifica</button>
+        <button class="btn-custom btn-danger" (click)="deleteImmobile(immobile.id)">Elimina</button>
         <div *ngIf="immobile.expanded" class="mt-3">
           <div class="row">
             <div class="col-md-6">
@@ -165,23 +168,23 @@
               <p class="card-text"><strong>Provincia:</strong> {{ immobile.provincia }}</p>
             </div>
             <div class="col-md-6">
-              <p class="card-text"><strong>Posto Auto:</strong> {{ immobile.postoAuto ? 'Sì' : 'No' }}</p>
-              <p class="card-text"><strong>Giardino:</strong> {{ immobile.giardino ? 'Sì' : 'No' }}</p>
-              <p class="card-text"><strong>Terrazzo:</strong> {{ immobile.terrazzo ? 'Sì' : 'No' }}</p>
-              <p class="card-text"><strong>Ascensore:</strong> {{ immobile.ascensore ? 'Sì' : 'No' }}</p>
-              <p class="card-text"><strong>Cantina:</strong> {{ immobile.cantina ? 'Sì' : 'No' }}</p>
-              <p class="card-text"><strong>Riscaldamento:</strong> {{ immobile.riscaldamento ? 'Sì' : 'No' }}</p>
-              <p class="card-text"><strong>Climatizzazione:</strong> {{ immobile.climatizzazione ? 'Sì' : 'No' }}</p>
-              <p class="card-text"><strong>Allarme:</strong> {{ immobile.allarme ? 'Sì' : 'No' }}</p>
-              <p class="card-text"><strong>Sorveglianza:</strong> {{ immobile.sorveglianza ? 'Sì' : 'No' }}</p>
+              <p *ngIf="immobile.postoAuto" class="card-text"><strong>Posto Auto:</strong> Sì</p>
+              <p *ngIf="immobile.giardino" class="card-text"><strong>Giardino:</strong> Sì</p>
+              <p *ngIf="immobile.terrazzo" class="card-text"><strong>Terrazzo:</strong> Sì</p>
+              <p *ngIf="immobile.ascensore" class="card-text"><strong>Ascensore:</strong> Sì</p>
+              <p *ngIf="immobile.cantina" class="card-text"><strong>Cantina:</strong> Sì</p>
+              <p *ngIf="immobile.riscaldamento" class="card-text"><strong>Riscaldamento:</strong> Sì</p>
+              <p *ngIf="immobile.climatizzazione" class="card-text"><strong>Climatizzazione:</strong> Sì</p>
+              <p *ngIf="immobile.allarme" class="card-text"><strong>Allarme:</strong> Sì</p>
+              <p *ngIf="immobile.sorveglianza" class="card-text"><strong>Sorveglianza:</strong> Sì</p>
             </div>
             <div *ngIf="immobile.disponibilita && immobile.disponibilita.length > 0" class="mt-3">
               <h6>Disponibilità:</h6>
               <ul>
                 <li *ngFor="let disponibilita of immobile.disponibilita">
                   {{ disponibilita.dataDisponibilita | date }} - {{ disponibilita.oraInizio }} alle {{ disponibilita.oraFine }}
-                  <button class="btn btn-primary btn-sm" (click)="toggleAggiornaDisponibilitaForm(disponibilita)">Aggiorna</button>
-                  <button class="btn btn-danger btn-sm" (click)="eliminaDisponibilita(disponibilita.id)">Elimina</button>
+                  <button class="btn-custom btn-primary btn-sm m-4" (click)="toggleAggiornaDisponibilitaForm(disponibilita)">Aggiorna</button>
+                  <button class="btn-custom btn-danger btn-sm" (click)="eliminaDisponibilita(disponibilita.id)">Elimina</button>
                 </li>
               </ul>
             </div>
@@ -199,7 +202,7 @@
                   <label for="oraFine">Ora Fine</label>
                   <input id="oraFine" formControlName="oraFine" type="time" class="form-control" />
                 </div>
-                <button type="submit" class="btn btn-success">Aggiorna Disponibilità</button>
+                <button type="submit" class="btn-custom btn-success">Aggiorna Disponibilità</button>
               </form>
             </div>
           </div>
@@ -208,7 +211,7 @@
           </div>
           <div class="mt-3">
             <input type="file" (change)="onFileSelected($event, immobile.id)" multiple />
-            <button class="btn btn-primary mt-2" (click)="uploadImmagine(immobile.id)">Carica Immagini</button>
+            <button class="btn-custom btn-primary mt-2" (click)="uploadImmagine(immobile.id)">Carica Immagini</button>
           </div>
           <p class="card-text"><strong>Stato Immobile:</strong> {{ immobile.statoImmobile }}</p>
         </div>

@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required]],
     });
 
-    // Ottieni il parametro returnUrl dall'URL (se presente)
+
     this.route.queryParams.subscribe(params => {
       this.returnUrl = params['returnUrl'] || '/home'; // Se non c'è returnUrl, usa '/home'
     });
