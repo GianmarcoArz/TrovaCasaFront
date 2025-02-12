@@ -1,0 +1,26 @@
+.container {
+  position: relative;
+}
+
+.filter-container {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.filter-container .form-control,
+.filter-container .form-select {
+  margin-bottom: 10px;
+}
+
+.advanced-filters {
+  margin-top: 20px;
+}
+img.w-100 {
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

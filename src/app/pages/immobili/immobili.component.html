@@ -1,16 +1,63 @@
-<div class="container mt-5">
-  <h1 class="text-center mb-4">Annunci Immobiliari</h1>
-  <div class="row">
-    <div class="col-md-4" *ngFor="let immobile of immobili">
-      <div class="card mb-4 h-100" (click)="viewImmobileDetails(immobile.id)" >
-        <img *ngIf="immobile.immagini.length > 0" [src]="immobile.immagini[0].urlImmagine" class="card-img-top" alt="Immagine immobile">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title">{{ immobile.titolo }}</h5>
-          <p class="card-text">{{ immobile.descrizione }}</p>
-          <p class="card-text"><strong>Prezzo:</strong> {{ immobile.prezzo }} €</p>
+<div class="container mt-5 position-relative">
+  <div class="position-relative">
+    <img src="/assets/ucrs-visual-venditaimmobili.webp" class="w-100 rounded shadow" alt="foto ricerca">
+    <div class="filter-container position-absolute top-50 start-50 translate-middle w-75 p-3">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <input type="text" class="form-control" placeholder="Cerca per titolo..." [(ngModel)]="searchCriteria.titolo" (input)="filterImmobili()">
+        </div>
 
+        <div class="col-md-6">
+          <input type="number" class="form-control" placeholder="Prezzo minimo..." [(ngModel)]="searchCriteria.prezzoMin" (input)="filterImmobili()">
+          <input type="number" class="form-control mt-2" placeholder="Prezzo massimo..." [(ngModel)]="searchCriteria.prezzoMax" (input)="filterImmobili()">
+        </div>
+      </div>
+      <button class="btn btn-secondary mb-3" (click)="toggleAdvancedFilters()">Filtri Avanzati</button>
+      <div *ngIf="showAdvancedFilters" class="advanced-filters">
+        <div class="row mb-4">
+          <div class="col-md-4">
+            <input type="number" class="form-control" placeholder="Cerca per metri quadri..." [(ngModel)]="searchCriteria.metriQuadri" (input)="filterImmobili()">
+          </div>
+          <div class="col-md-4">
+            <input type="number" class="form-control" placeholder="Cerca per numero vani..." [(ngModel)]="searchCriteria.numeroVani" (input)="filterImmobili()">
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="Cerca per comune..." [(ngModel)]="searchCriteria.comune" (input)="filterImmobili()">
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="Cerca per via..." [(ngModel)]="searchCriteria.via" (input)="filterImmobili()">
+          </div>
+          <div class="col-md-4">
+            <select class="form-control" [(ngModel)]="searchCriteria.postoAuto" (change)="filterImmobili()">
+              <option value="">Cerca per posto auto...</option>
+              <option [value]="true">Sì</option>
+              <option [value]="false">No</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <select class="form-control" [(ngModel)]="searchCriteria.statoImmobile" (change)="filterImmobili()">
+              <option value="">Cerca per stato immobile...</option>
+              <option value="NUOVO">Nuovo</option>
+              <option value="USATO">Usato</option>
+              <option value="RISTRUTTURATO">Ristrutturato</option>
+              <option value="DA_RISTRUTTURARE">Da Ristrutturare</option>
+            </select>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <h1 class="text-center mb-4">Annunci Immobiliari</h1>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let immobile of filteredImmobili">
+      <div class="card mb-4 h-100" (click)="viewImmobileDetails(immobile.id)">
+        <img *ngIf="immobile.immagini.length > 0" [src]="immobile.immagini[0].urlImmagine" class="card-img-top" alt="Immagine immobile">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ immobile.titolo }}</h5>
+          <p class="card-text">{{ immobile.descrizione }}</p>
+          <p class="card-text"><strong>Prezzo:</strong> {{ immobile.prezzo }} €</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

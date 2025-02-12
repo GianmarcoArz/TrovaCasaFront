@@ -155,7 +155,7 @@
           {{ immobile.expanded ? 'Mostra meno' : 'Mostra di più' }}
         </button>
         <button class="btn-custom btn-primary m-4" (click)="editImmobile(immobile)">Modifica</button>
-        <button class="btn-custom btn-danger" (click)="deleteImmobile(immobile.id)">Elimina</button>
+        <button class="btn-custom btn-danger" (click)="deleteImmobile(immobile.id)"><i class="bi bi-trash-fill"></i></button>
         <div *ngIf="immobile.expanded" class="mt-3">
           <div class="row">
             <div class="col-md-6">
@@ -183,8 +183,12 @@
               <ul>
                 <li *ngFor="let disponibilita of immobile.disponibilita">
                   {{ disponibilita.dataDisponibilita | date }} - {{ disponibilita.oraInizio }} alle {{ disponibilita.oraFine }}
-                  <button class="btn-custom btn-primary btn-sm m-4" (click)="toggleAggiornaDisponibilitaForm(disponibilita)">Aggiorna</button>
-                  <button class="btn-custom btn-danger btn-sm" (click)="eliminaDisponibilita(disponibilita.id)">Elimina</button>
+                  <button class="btn-custom btn-primary btn-sm m-4" (click)="toggleAggiornaDisponibilitaForm(disponibilita)">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button class="btn-custom btn-danger btn-sm" (click)="eliminaDisponibilita(disponibilita.id)">
+                    <i class="bi bi-trash-fill"></i>
+                  </button>
                 </li>
               </ul>
             </div>

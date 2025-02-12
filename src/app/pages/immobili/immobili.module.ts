@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ImmobiliComponent } from "./immobili.component";
 import { ImmobiliRoutingModule } from "./immobili-routing.module";
+import { FormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { ImmobiliRoutingModule } from "./immobili-routing.module";
   ],
   imports: [
     CommonModule,
-    ImmobiliRoutingModule
+    ImmobiliRoutingModule,
+    FormsModule
   ]
 })
 export class ImmobiliModule { }
