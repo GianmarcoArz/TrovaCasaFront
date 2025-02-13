@@ -30,7 +30,6 @@ export class ProfiloComponent implements OnInit {
   constructor(private fb: FormBuilder, private immobiliService: ImmobiliService) {}
 
   ngOnInit(): void {
-
     this.disponibilitaForm = this.fb.group({
       dataDisponibilita: ['', Validators.required],
       oraInizio: ['', Validators.required],
@@ -115,6 +114,7 @@ export class ProfiloComponent implements OnInit {
       });
     }
   }
+
   aggiornaDisponibilita(): void {
     if (this.aggiornaDisponibilitaForm.valid && this.selectedDisponibilitaId !== null) {
       const disponibilitaData: AppuntamentoDTO = this.aggiornaDisponibilitaForm.value;
@@ -123,7 +123,7 @@ export class ProfiloComponent implements OnInit {
         this.showAggiornaDisponibilitaForm = false;
         this.aggiornaDisponibilitaForm.reset();
         this.selectedDisponibilitaId = null;
-        this.loadImmobiliUser(); // Reload the user's properties
+        this.loadImmobiliUser();
       }, error => {
         alert('Errore nell\'aggiornamento della disponibilità');
       });
@@ -134,7 +134,7 @@ export class ProfiloComponent implements OnInit {
     if (confirm('Sei sicuro di voler eliminare questa disponibilità?')) {
       this.immobiliService.eliminaDisponibilita(disponibilitaId).subscribe(response => {
         alert('Disponibilità eliminata con successo');
-        this.loadImmobiliUser(); // Reload the user's properties
+        this.loadImmobiliUser();
       }, error => {
         alert('Errore nell\'eliminazione della disponibilità');
       });
@@ -148,8 +148,7 @@ export class ProfiloComponent implements OnInit {
         alert('Annuncio creato con successo');
         this.showForm = false;
         this.immobileForm.reset();
-        this.loadImmobiliUser(); // Reload the user's properties
-
+        this.loadImmobiliUser();
       }, error => {
         alert('Errore nella creazione dell\'annuncio');
       });
@@ -211,7 +210,7 @@ export class ProfiloComponent implements OnInit {
         alert('Immagini caricate con successo');
         this.selectedFilesMap[immobileId] = [];
         this.imagePreviewsMap[immobileId] = [];
-        this.loadImmobiliUser(); // Reload the user's properties
+        this.loadImmobiliUser();
       }, error => {
         alert('Errore nel caricamento delle immagini');
       });
@@ -238,7 +237,7 @@ export class ProfiloComponent implements OnInit {
         this.showForm = false;
         this.immobileForm.reset();
         this.selectedImmobileId = null;
-        this.loadImmobiliUser(); // Reload the user's properties
+        this.loadImmobiliUser();
       }, error => {
         alert('Errore nell\'aggiornamento dell\'immobile');
       });
@@ -249,7 +248,7 @@ export class ProfiloComponent implements OnInit {
     if (confirm('Sei sicuro di voler eliminare questo immobile?')) {
       this.immobiliService.deleteImmobile(id).subscribe(response => {
         alert('Immobile eliminato con successo');
-        this.loadImmobiliUser(); // Reload the user's properties
+        this.loadImmobiliUser();
       }, error => {
         alert('Errore nell\'eliminazione dell\'immobile');
       });

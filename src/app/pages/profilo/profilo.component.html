@@ -112,10 +112,13 @@
     <h2 class="text-center mb-4">Prenotazioni</h2>
     <ul *ngIf="prenotazioni.length > 0; else noPrenotazioni">
       <li *ngFor="let prenotazione of prenotazioni">
-        Data: {{ prenotazione.dataDisponibilita | date:'dd/MM/yyyy' }},
-        Ora Inizio: {{ prenotazione.oraInizio }},
-        Ora Fine: {{ prenotazione.oraFine }},
-        Prenotato da: {{ prenotazione.utentePrenotato?.nome}}
+        <p><strong>Data:</strong> {{ prenotazione.dataDisponibilita | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Ora Inizio:</strong> {{ prenotazione.oraInizio }}</p>
+        <p><strong>Ora Fine:</strong> {{ prenotazione.oraFine }}</p>
+        <p><strong>Per l'immobile in via :</strong> {{ prenotazione}}</p>
+        <p><strong>Prenotato da:</strong> {{ prenotazione.utentePrenotato?.nome }}</p>
+        <p><strong>Telefono:</strong> {{ prenotazione.utentePrenotato?.telefono }}</p>
+        <p><strong>Email:</strong> {{ prenotazione.utentePrenotato?.email }}</p>
       </li>
     </ul>
     <ng-template #noPrenotazioni>
@@ -155,7 +158,7 @@
           {{ immobile.expanded ? 'Mostra meno' : 'Mostra di più' }}
         </button>
         <button class="btn-custom btn-primary m-4" (click)="editImmobile(immobile)">Modifica</button>
-        <button class="btn-custom btn-danger" (click)="deleteImmobile(immobile.id)"><i class="bi bi-trash-fill"></i></button>
+        <i class="bi bi-trash-fill" (click)="deleteImmobile(immobile.id)" style="cursor: pointer;"></i>
         <div *ngIf="immobile.expanded" class="mt-3">
           <div class="row">
             <div class="col-md-6">
@@ -179,16 +182,12 @@
               <p *ngIf="immobile.sorveglianza" class="card-text"><strong>Sorveglianza:</strong> Sì</p>
             </div>
             <div *ngIf="immobile.disponibilita && immobile.disponibilita.length > 0" class="mt-3">
-              <h6>Disponibilità:</h6>
+              <h6 class="fs-3 my-3">Disponibilità assegnate all'immobile:</h6>
               <ul>
                 <li *ngFor="let disponibilita of immobile.disponibilita">
                   {{ disponibilita.dataDisponibilita | date }} - {{ disponibilita.oraInizio }} alle {{ disponibilita.oraFine }}
-                  <button class="btn-custom btn-primary btn-sm m-4" (click)="toggleAggiornaDisponibilitaForm(disponibilita)">
-                    <i class="bi bi-pencil-square"></i>
-                  </button>
-                  <button class="btn-custom btn-danger btn-sm" (click)="eliminaDisponibilita(disponibilita.id)">
-                    <i class="bi bi-trash-fill"></i>
-                  </button>
+                  <i class="bi bi-pencil-square m-4" (click)="toggleAggiornaDisponibilitaForm(disponibilita)" style="cursor: pointer;"></i>
+                  <i class="bi bi-trash-fill" (click)="eliminaDisponibilita(disponibilita.id)" style="cursor: pointer;"></i>
                 </li>
               </ul>
             </div>
