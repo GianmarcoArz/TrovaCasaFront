@@ -112,13 +112,11 @@
     <h2 class="text-center mb-4">Prenotazioni</h2>
     <ul *ngIf="prenotazioni.length > 0; else noPrenotazioni">
       <li *ngFor="let prenotazione of prenotazioni">
-        <p><strong>Data:</strong> {{ prenotazione.dataDisponibilita | date:'dd/MM/yyyy' }}</p>
-        <p><strong>Ora Inizio:</strong> {{ prenotazione.oraInizio }}</p>
-        <p><strong>Ora Fine:</strong> {{ prenotazione.oraFine }}</p>
-        <p><strong>Per l'immobile in via :</strong> {{ prenotazione}}</p>
-        <p><strong>Prenotato da:</strong> {{ prenotazione.utentePrenotato?.nome }}</p>
-        <p><strong>Telefono:</strong> {{ prenotazione.utentePrenotato?.telefono }}</p>
-        <p><strong>Email:</strong> {{ prenotazione.utentePrenotato?.email }}</p>
+        il giorno {{ prenotazione.dataDisponibilita | date:'dd/MM/yyyy' }},
+        alle ore  {{ prenotazione.oraInizio }},
+        fino alle {{ prenotazione.oraFine }},
+        il Sig.e/a {{ prenotazione.utentePrenotato?.nome}} {{ prenotazione.utentePrenotato?.cognome}} vuole vedere il tuo immobile. <hr>
+        contatti utili : {{ prenotazione.utentePrenotato?.email}} - {{ prenotazione.utentePrenotato?.telefono}}
       </li>
     </ul>
     <ng-template #noPrenotazioni>
