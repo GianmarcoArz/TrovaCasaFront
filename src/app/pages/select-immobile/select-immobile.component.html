@@ -1,8 +1,8 @@
-<div *ngIf="immobile">
+<div class="container" *ngIf="immobile">
   <div *ngIf="immobile.immagini.length">
     <h3>Immagini:</h3>
-    <div *ngFor="let img of immobile.immagini">
-      <img [src]="img.urlImmagine" alt="Immagine immobile" class="img-thumbnail">
+    <div class="d-flex flex-wrap justify-content-center">
+      <img *ngFor="let img of immobile.immagini" [src]="img.urlImmagine" alt="Immagine immobile" class="img-thumbnail m-2">
     </div>
   </div>
   <h1>{{ immobile.titolo }}</h1>
@@ -33,7 +33,7 @@
         Data: {{ disponibilita.dataDisponibilita | date:'dd/MM/yyyy' }},
         Ora Inizio: {{ disponibilita.oraInizio }},
         Ora Fine: {{ disponibilita.oraFine }}
-        <button (click)="prenotaDisponibilita(disponibilita.id)">Prenota</button>
+        <button class="ml-3" (click)="prenotaDisponibilita(disponibilita.id)">Prenota</button>
       </li>
     </ul>
   </div>

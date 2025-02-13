@@ -32,6 +32,18 @@ export class ImmobiliComponent implements OnInit {
     this.loadImmobili();
   }
 
+  toggleAdvancedFilters(): void {
+    this.showAdvancedFilters = !this.showAdvancedFilters;
+    const advancedFiltersElement = document.querySelector('.advanced-filters');
+    if (advancedFiltersElement) {
+      if (this.showAdvancedFilters) {
+        advancedFiltersElement.classList.add('show');
+      } else {
+        advancedFiltersElement.classList.remove('show');
+      }
+    }
+  }
+
   loadImmobili(): void {
     this.immobiliService.getAllImmobili().subscribe(data => {
       this.immobili = data;
@@ -58,9 +70,7 @@ export class ImmobiliComponent implements OnInit {
     });
   }
 
-  toggleAdvancedFilters(): void {
-    this.showAdvancedFilters = !this.showAdvancedFilters;
-  }
+
 
   viewImmobileDetails(immobileId: number): void {
     this.router.navigate(['/immobili', immobileId]);
