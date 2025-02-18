@@ -32,4 +32,5 @@ export class SelectImmobileComponent implements OnInit {
       console.error('Errore nella prenotazione della disponibilità', error);
     });
   }
+
 }

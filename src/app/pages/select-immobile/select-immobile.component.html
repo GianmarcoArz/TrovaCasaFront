@@ -1,40 +1,46 @@
 <div class="container" *ngIf="immobile">
-  <div *ngIf="immobile.immagini.length">
-    <h3>Immagini:</h3>
-    <div class="d-flex flex-wrap justify-content-center">
-      <img *ngFor="let img of immobile.immagini" [src]="img.urlImmagine" alt="Immagine immobile" class="img-thumbnail m-2">
-    </div>
-  </div>
-  <h1>{{ immobile.titolo }}</h1>
-  <p>{{ immobile.descrizione }}</p>
-  <p><strong>Prezzo:</strong> {{ immobile.prezzo }} €</p>
-  <p><strong>Metri Quadri:</strong> {{ immobile.metriQuadri }}</p>
-  <p><strong>Numero Vani:</strong> {{ immobile.numeroVani }}</p>
-  <p><strong>Piano:</strong> {{ immobile.piano }}</p>
-  <p><strong>Via:</strong> {{ immobile.via }}</p>
-  <p><strong>Civico:</strong> {{ immobile.civico }}</p>
-  <p><strong>Comune:</strong> {{ immobile.comune }}</p>
-  <p><strong>Provincia:</strong> {{ immobile.provincia }}</p>
-  <p><strong>Posto Auto:</strong> {{ immobile.postoAuto ? 'Sì' : 'No' }}</p>
-  <p><strong>Giardino:</strong> {{ immobile.giardino ? 'Sì' : 'No' }}</p>
-  <p><strong>Terrazzo:</strong> {{ immobile.terrazzo ? 'Sì' : 'No' }}</p>
-  <p><strong>Ascensore:</strong> {{ immobile.ascensore ? 'Sì' : 'No' }}</p>
-  <p><strong>Cantina:</strong> {{ immobile.cantina ? 'Sì' : 'No' }}</p>
-  <p><strong>Riscaldamento:</strong> {{ immobile.riscaldamento ? 'Sì' : 'No' }}</p>
-  <p><strong>Climatizzazione:</strong> {{ immobile.climatizzazione ? 'Sì' : 'No' }}</p>
-  <p><strong>Allarme:</strong> {{ immobile.allarme ? 'Sì' : 'No' }}</p>
-  <p><strong>Sorveglianza:</strong> {{ immobile.sorveglianza ? 'Sì' : 'No' }}</p>
-  <p><strong>Stato Immobile:</strong> {{ immobile.statoImmobile }}</p>
+  <div class="row">
+    <div class="col-md-6">
+      <h1>{{ immobile.titolo }}</h1>
+      <p>{{ immobile.descrizione }}</p>
+      <p><strong>Prezzo:</strong> {{ immobile.prezzo }} €</p>
+      <p><strong>Metri Quadri:</strong> {{ immobile.metriQuadri }}</p>
+      <p><strong>Numero Vani:</strong> {{ immobile.numeroVani }}</p>
+      <p><strong>Piano:</strong> {{ immobile.piano }}</p>
+      <p><strong>Via:</strong> {{ immobile.via }}</p>
+      <p><strong>Civico:</strong> {{ immobile.civico }}</p>
+      <p><strong>Comune:</strong> {{ immobile.comune }}</p>
+      <p><strong>Provincia:</strong> {{ immobile.provincia }}</p>
+      <p><strong>Posto Auto:</strong> {{ immobile.postoAuto ? 'Sì' : 'No' }}</p>
+      <p><strong>Giardino:</strong> {{ immobile.giardino ? 'Sì' : 'No' }}</p>
+      <p><strong>Terrazzo:</strong> {{ immobile.terrazzo ? 'Sì' : 'No' }}</p>
+      <p><strong>Ascensore:</strong> {{ immobile.ascensore ? 'Sì' : 'No' }}</p>
+      <p><strong>Cantina:</strong> {{ immobile.cantina ? 'Sì' : 'No' }}</p>
+      <p><strong>Riscaldamento:</strong> {{ immobile.riscaldamento ? 'Sì' : 'No' }}</p>
+      <p><strong>Climatizzazione:</strong> {{ immobile.climatizzazione ? 'Sì' : 'No' }}</p>
+      <p><strong>Allarme:</strong> {{ immobile.allarme ? 'Sì' : 'No' }}</p>
+      <p><strong>Sorveglianza:</strong> {{ immobile.sorveglianza ? 'Sì' : 'No' }}</p>
+      <p><strong>Stato Immobile:</strong> {{ immobile.statoImmobile }}</p>
 
-  <div *ngIf="immobile.disponibilita.length">
-    <h3>Disponibilità:</h3>
-    <ul>
-      <li *ngFor="let disponibilita of immobile.disponibilita">
-        Data: {{ disponibilita.dataDisponibilita | date:'dd/MM/yyyy' }},
-        Ora Inizio: {{ disponibilita.oraInizio }},
-        Ora Fine: {{ disponibilita.oraFine }}
-        <button class="ml-3" (click)="prenotaDisponibilita(disponibilita.id)">Prenota</button>
-      </li>
-    </ul>
+      <div *ngIf="immobile.disponibilita.length">
+        <h3>Disponibilità:</h3>
+        <ul>
+          <li *ngFor="let disponibilita of immobile.disponibilita">
+            Data: {{ disponibilita.dataDisponibilita | date:'dd/MM/yyyy' }},
+            Ora Inizio: {{ disponibilita.oraInizio }},
+            Ora Fine: {{ disponibilita.oraFine }}
+            <button class="ml-3" (click)="prenotaDisponibilita(disponibilita.id)">Prenota</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div *ngIf="immobile.immagini.length">
+        <h3>Immagini:</h3>
+        <div class="d-flex flex-wrap justify-content-center">
+          <img *ngFor="let img of immobile.immagini" [src]="img.urlImmagine" alt="Immagine immobile" class="img-thumbnail m-2">
+        </div>
+      </div>
+    </div>
   </div>
 </div>
