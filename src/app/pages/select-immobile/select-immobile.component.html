@@ -23,13 +23,13 @@
       <p><strong>Stato Immobile:</strong> {{ immobile.statoImmobile }}</p>
 
       <div *ngIf="immobile.disponibilita.length">
-        <h3>Disponibilità:</h3>
+        <h3>Disponibilità del proprietario:</h3>
         <ul>
           <li *ngFor="let disponibilita of immobile.disponibilita">
             Data: {{ disponibilita.dataDisponibilita | date:'dd/MM/yyyy' }},
             Ora Inizio: {{ disponibilita.oraInizio }},
             Ora Fine: {{ disponibilita.oraFine }}
-            <button class="ml-3" (click)="prenotaDisponibilita(disponibilita.id)">Prenota</button>
+            <button class="btn-custom btn-secondary ms-3" (click)="prenotaDisponibilita(disponibilita.id)">Prenotati</button>
           </li>
         </ul>
       </div>

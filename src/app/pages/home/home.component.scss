@@ -14,11 +14,13 @@ $background-color: #FBFBFC;
   h2 {
     font-size: 2.5em;
     margin-bottom: 10px;
+    animation: fadeInDown 1s ease-in-out;
   }
 
   p {
     font-size: 1.2em;
     margin-bottom: 20px;
+    animation: fadeInUp 1s ease-in-out;
   }
 }
 
@@ -27,16 +29,18 @@ $background-color: #FBFBFC;
   border: 2px solid $primary-color;
   border-radius: 10px;
   overflow: hidden;
+  animation: fadeIn 1s ease-in-out;
 }
 
 .card {
   border: none;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
 
   &:hover {
     transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
 
   .card-body {
@@ -45,6 +49,7 @@ $background-color: #FBFBFC;
     color: $background-color;
     border-top: 5px solid $secondary-color;
     border-radius: 10px 10px 0 0;
+    animation: fadeIn 1s ease-in-out;
 
     h5 {
       font-size: 1.5em;
@@ -55,5 +60,64 @@ $background-color: #FBFBFC;
     p {
       font-size: 1.1em;
     }
+  }
+}
+
+img {
+  width: 100%;
+  border-radius: 10px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .text-center h2 {
+    font-size: 2em;
+  }
+
+  .text-center p {
+    font-size: 1em;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+
+  .card-body h5 {
+    font-size: 1.2em;
+  }
+
+  .card-body p {
+    font-size: 1em;
   }
 }
