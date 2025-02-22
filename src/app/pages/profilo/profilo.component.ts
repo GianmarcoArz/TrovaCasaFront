@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ImmobiliService } from '../../services/immobili.service';
 import { ImmobileDTO } from '../../interfaces/immobile-dto';
 import { ImmagineImmobile } from '../../interfaces/i-immobili';
@@ -34,13 +34,13 @@ export class ProfiloComponent implements OnInit {
       dataDisponibilita: ['', Validators.required],
       oraInizio: ['', Validators.required],
       oraFine: ['', Validators.required]
-    });
+    }, { validators: this.timeIntervalValidator });
 
     this.aggiornaDisponibilitaForm = this.fb.group({
       dataDisponibilita: ['', Validators.required],
       oraInizio: ['', Validators.required],
       oraFine: ['', Validators.required]
-    });
+    }, { validators: this.timeIntervalValidator });
 
     this.immobileForm = this.fb.group({
       titolo: ['', Validators.required],
@@ -66,6 +66,25 @@ export class ProfiloComponent implements OnInit {
     });
 
     this.loadImmobiliUser();
+  }
+
+  timeIntervalValidator(control: AbstractControl): ValidationErrors | null {
+    const oraInizio = control.get('oraInizio')?.value;
+    const oraFine = control.get('oraFine')?.value;
+
+    if (oraInizio && oraFine) {
+      const start = new Date(`1970-01-01T${oraInizio}:00`);
+      const end = new Date(`1970-01-01T${oraFine}:00`);
+      const diff = (end.getTime() - start.getTime()) / 60000; // difference in minutes
+
+      if (diff < 15 || diff > 45) {
+        if (diff > 45) {
+          alert('Non è possibile effettuare appuntamenti maggiori di 45 minuti');
+        }
+        return { invalidInterval: true };
+      }
+    }
+    return null;
   }
 
   toggleForm(): void {
